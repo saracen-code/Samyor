@@ -22,7 +22,6 @@ class Taxation(commands.Cog):
                 await ctx.send("You do not have a country assigned to you.")
                 return
             country = country.name
-            return country
         else:
             await ctx.send("You are an admin. Please provide the name of the country you want to manage:")
             
@@ -33,14 +32,40 @@ class Taxation(commands.Cog):
             if not country:
                 await ctx.send(f'{country} does not exist in our database.')
                 raise NameError(f'{country} does not exist in our database.')
-        country = msg.content
+            country = msg.content
+
         # Create the embed
         taxobj = tax.obj_checker(country)
         countryobj = clcountry.obj_checker(country)
         if not taxobj or not countryobj:
             await ctx.send(f"Could not find tax or country data for {country}.")
             return
-        print(f"succesfully found {countryobj} and {taxobj}")
+        print(f"Successfully found {countryobj} and {taxobj}")
+        embed = self.create_embed(taxobj, countryobj)
+
+        # Create buttons
+        increase_button = Button(label="Increase Land Tax", style=nextcord.ButtonStyle.primary, emoji="🔺")
+        decrease_button = Button(label="Decrease Land Tax", style=nextcord.ButtonStyle.danger, emoji="🔻")
+        collect_button = Button(label="Collect Annual Taxes", style=nextcord.ButtonStyle.success, emoji="💰")
+        stats_button = Button(label="View Stats", style=nextcord.ButtonStyle.primary, emoji="📊")
+
+        # Add callbacks to buttons
+        increase_button.callback = self.increase_tax_callback(taxobj, countryobj, ctx)
+        decrease_button.callback = self.decrease_tax_callback(taxobj, countryobj, ctx)
+        collect_button.callback = self.collect_taxes_callback(taxobj, countryobj, ctx)
+        stats_button.callback = self.view_stats_callback(taxobj, countryobj, ctx)
+
+        # Create a view and add buttons to it
+        view = View()
+        view.add_item(increase_button)
+        view.add_item(decrease_button)
+        view.add_item(collect_button)
+        view.add_item(stats_button)
+
+        # Send the embed with the view
+        await ctx.send(embed=embed, view=view)
+
+    def create_embed(self, taxobj, countryobj):
         embed = nextcord.Embed(
             title="🏛️ Country Tax Manager",
             description=(
@@ -60,20 +85,30 @@ class Taxation(commands.Cog):
         )
         embed.set_thumbnail(url="https://img.freepik.com/premium-photo/medieval-florentine-banking-scene-illustration_818261-29255.jpg")  # Replace with a relevant image URL
         embed.set_footer(text="Country Tax Manager | Powered by SamyorBOT")
+        return embed
 
-        # Create buttons
-        increase_button = Button(label="Increase Land Tax", style=nextcord.ButtonStyle.primary, emoji="🔺")
-        decrease_button = Button(label="Decrease Land Tax", style=nextcord.ButtonStyle.danger, emoji="🔻")
-        collect_button = Button(label="Collect Annual Taxes", style=nextcord.ButtonStyle.success, emoji="💰")
-        stats_button = Button(label="View Stats", style=nextcord.ButtonStyle.primary, emoji="📊")
+    def increase_tax_callback(self, taxobj, countryobj, ctx):
+        async def callback(interaction):
+            taxobj.land_tax += 1
+            await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj))
+        return callback
 
-        # Create a view and add buttons to it
-        view = View()
-        view.add_item(increase_button)
-        view.add_item(decrease_button)
-        view.add_item(collect_button)
-        view.add_item(stats_button)
-        # Send the embed with the view
-        await ctx.send(embed=embed, view=view)
+    def decrease_tax_callback(self, taxobj, countryobj, ctx):
+        async def callback(interaction):
+            taxobj.land_tax -= 1
+            await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj))
+        return callback
+
+    def collect_taxes_callback(self, taxobj, countryobj, ctx):
+        async def callback(interaction):
+            countryobj.funds += taxobj.land_tax  # Simplified tax collection logic
+            await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj))
+        return callback
+
+    def view_stats_callback(self, taxobj, countryobj, ctx):
+        async def callback(interaction):
+            await interaction.response.send_message(f"Current funds: {countryobj.funds}")
+        return callback
+
 def setup(bot):
     bot.add_cog(Taxation(bot))
