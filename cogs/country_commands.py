@@ -1,6 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 import classes.country as clcountry
+import classes.tax_settings as tax
 
 '''
 Commands pertaining to countries
@@ -38,6 +39,9 @@ class CountryCmds(commands.Cog):
             await ctx.send(f'{country} does not exist in our database.')
             raise NameError(f'{country} does not exist in our database.')
         await ctx.send(f'{obj.name} is owned by <@{obj.userid}>.')
+    @commands.command(name="showtax", help="Show the tax manager")
+    async def initializetax(self, ctx):
+        tax.initialize()
 
 def setup(bot):
     bot.add_cog(CountryCmds(bot))

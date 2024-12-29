@@ -60,6 +60,7 @@ def initialize(self, country):
         for key in TAX_INDEX:
             print(key)
             self.land_tax = listing[1]
+            print("For this object: ", self.land_tax)
             self.poll_tax = listing[2]
             self.rents = listing[3]
             self.customs = listing[4]
