@@ -21,6 +21,8 @@ class Taxation(commands.Cog):
             if not country:
                 await ctx.send("You do not have a country assigned to you.")
                 return
+            country = country.name
+            return country
         else:
             await ctx.send("You are an admin. Please provide the name of the country you want to manage:")
             
@@ -31,6 +33,7 @@ class Taxation(commands.Cog):
             if not country:
                 await ctx.send(f'{country} does not exist in our database.')
                 raise NameError(f'{country} does not exist in our database.')
+            country = msg.content
         # Create the embed
         obj = tax.obj_checker(country)
 
