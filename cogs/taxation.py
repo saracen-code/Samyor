@@ -31,18 +31,18 @@ class Taxation(commands.Cog):
 
         # Create buttons
         increase_button = Button(label="Increase Land Tax", style=nextcord.ButtonStyle.primary, emoji="🔺")
+        decrease_button = Button(label="Decrease Land Tax", style=nextcord.ButtonStyle.danger, emoji="🔻")
+        collect_button = Button(label="Collect Annual Taxes", style=nextcord.ButtonStyle.success, emoji="💰")
         stats_button = Button(label="View Stats", style=nextcord.ButtonStyle.primary, emoji="📊")
 
         # Create a view and add buttons to it
         view = View()
         view.add_item(increase_button)
-        decrease_button = Button(label="Decrease Land Tax", style=nextcord.ButtonStyle.danger, emoji="🔻")
+
         view.add_item(decrease_button)
         view.add_item(collect_button)
         view.add_item(stats_button)
         # Send the embed with the view
         await ctx.send(embed=embed, view=view)
-        collect_button = Button(label="Collect Annual Taxes", style=nextcord.ButtonStyle.success, emoji="💰")
-        stats_button = Button(label="View Stats", style=nextcord.ButtonStyle.primary, emoji="📊")
 def setup(bot):
     bot.add_cog(Taxation(bot))
