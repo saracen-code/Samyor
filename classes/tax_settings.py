@@ -73,7 +73,7 @@ class Tax:
         else:
             raise ValueError("Invalid tax type.")
     def update_spreadsheet(self, key):
-        location = so.convert_to_A1(TAX_INDEX[key], self.column)
+        location = so.convert_to_A1(TAX_INDEX[key] + 1, self.column)
         so.update_cell(location, self.get_key(key), "Taxation")
     def increase_tax(self, tax, increase):
         self.update_tax(tax, TAX_INDEX[tax] + increase)
