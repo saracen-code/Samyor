@@ -15,6 +15,7 @@ class Taxation(commands.Cog):
         if not ctx.author.guild_permissions.administrator:
             # Search for the country object with the queryer's discordID
             country = clcountry.get_country_by_id(ctx.author.id)
+            print(ctx.author.id)
             if not country:
                 await ctx.send("You do not have a country assigned to you.")
                 return

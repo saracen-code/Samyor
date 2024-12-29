@@ -134,8 +134,7 @@ def initializeExistingCountries_asOBJ(): # This command won't use the operations
             new_country.archive["taxes collected?"] = country[17]
             # Update the country attributes with the data from the archive
             for key in new_country.archive:
-                setattr(new_country, key, new_country.archive[key]) 
-                print(f"{key}: {new_country.archive[key]}")
+                setattr(new_country, key, new_country.archive[key])
     except Exception as e:
         print(f"An error occurred: {e}")
         return 1
