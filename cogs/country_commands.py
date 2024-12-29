@@ -24,5 +24,13 @@ class CountryCmds(commands.Cog):
     @commands.command(name="tax", help="View the country tax manager")
     async def tax(self, ctx):
         pass
+    @commands.command(name="column", help="Check the country column")
+    async def column(self, ctx, country: str):
+        obj = clcountry.obj_checker(country)
+        if not obj:
+            await ctx.send(f'{country} does not exist in our database.')
+            raise NameError(f'{country} does not exist in our database.')
+        await ctx.send(f'{obj.name} is in column {obj.column}.')
+
 def setup(bot):
     bot.add_cog(CountryCmds(bot))

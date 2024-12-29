@@ -9,7 +9,7 @@ import classes.country as clcountry
 import asyncio
 from keys import TOKEN
 
-operations_refresh_time = 20  # seconds
+operations_refresh_time = 3  # seconds
 single_operation_time = 0.5  # seconds
 
 # Create a bot instance with a command prefix

@@ -102,7 +102,7 @@ def initializeExistingCountries_asOBJ(): # This command won't use the operations
         countries = []  
         for i in range(COLUMN_START, len(list) + 1): # start at column b
             countries.append(so.get_col(i, "Countries"))
-        col = 2 # count their column on excel
+        col = 2
         for country in countries:
             print(country)
             # Create a country with the data from the sheet
