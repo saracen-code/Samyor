@@ -101,7 +101,7 @@ def upd_country_col(col: int, values: list):
     ws.update(cell_range, [[value] for value in flat_values])  # Ensure correct data structure
 
 def update_cell(cell, value, sheet_name):
-    ws = client.open(sheet_name).worksheet(sheet_name)
+    ws = worksheet(sheet_name)
     if not isinstance(value, (int, float, str)):  # Ensure value is valid
         raise ValueError(f"Invalid value type: {type(value)}")
     ws.update(cell, [[value]])  # Ensure value is wrapped correctly
