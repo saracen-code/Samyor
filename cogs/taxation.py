@@ -89,19 +89,13 @@ class Taxation(commands.Cog):
 
     def increase_tax_callback(self, taxobj, countryobj, ctx):
         async def callback(interaction):
-            taxobj.land_tax += 1
+            taxobj.increase_tax("land_tax", 1)
             await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj))
         return callback
 
     def decrease_tax_callback(self, taxobj, countryobj, ctx):
         async def callback(interaction):
-            taxobj.land_tax -= 1
-            await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj))
-        return callback
-
-    def collect_taxes_callback(self, taxobj, countryobj, ctx):
-        async def callback(interaction):
-            countryobj.funds += taxobj.land_tax  # Simplified tax collection logic
+            taxobj.decrease_tax("land_tax", 1)
             await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj))
         return callback
 
