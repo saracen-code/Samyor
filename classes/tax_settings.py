@@ -22,7 +22,9 @@ TAX_INDEX = {
 }
 
 class Tax:
+    all_taxes = []
     def __init__(self, country=Country):
+        self.name = "N/A"
         self.land_tax = 15
         self.poll_tax = 15
         self.rents = 15
@@ -32,6 +34,9 @@ class Tax:
         self.central_demesne = 15
         self.projected_revenue = 750000
         self.country = "N/A"
+        if not any(country.name == self.name for country in Country.all_countries):
+            Country.all_countries.append(self)
+        return None
     def update_tax(self, tax, value):
         if tax == "land_tax":
             self.land_tax = value
@@ -60,6 +65,7 @@ def initialize():
         listing = so.get_col(country.column, "Revenue Param.")
         print(listing)
         obj = Tax(country) # initialize taxable countries
+        obj.name = listing[0]
         obj.land_tax = listing[1]
         obj.poll_tax = listing[2]
         obj.rents = listing[3]

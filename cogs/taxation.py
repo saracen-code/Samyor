@@ -4,6 +4,8 @@ from nextcord.ui import Button, View
 import classes.country as clcountry
 from classes.country import Country
 import asyncio
+import classes.tax_settings as tax
+from classes.tax_settings import Tax
 
 class Taxation(commands.Cog):
     def __init__(self, bot):
@@ -30,12 +32,14 @@ class Taxation(commands.Cog):
                 await ctx.send(f'{country} does not exist in our database.')
                 raise NameError(f'{country} does not exist in our database.')
         # Create the embed
+        obj = tax.obj_checker(country)
+
         embed = nextcord.Embed(
             title="🏛️ Country Tax Manager",
             description=(
                 "Manage taxes for your country with ease! Use the buttons below to perform actions.\n\n"
                 "**Current Status:**\n"
-                "📊 **Land Tax:** 15%\n"
+                f"📊 **Land Tax:** {str(obj.land_tax)}\n"
                 "📊 **Poll Tax:** 15%\n"
                 "📊 **Rents:** 15%\n"
                 "📊 **Customs:** 15%\n"
