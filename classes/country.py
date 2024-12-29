@@ -73,6 +73,12 @@ class Country:
     def embedded(self):
         embed = Embed(title=f"{self.name}", description=f"**Funds:** {self.funds}\n**Population:** {self.population}\n**Capital:** {self.capital}\n**Currency:** {self.currency}\n**Languages:** {self.languages}\n**Provinces:** {self.provinces}\n**King:** {self.king}\n**Allies:** {self.allies}\n**Enemies:** {self.enemies}\n**Manpower:** {self.manpower}\n**Devastation:** {self.devastation}\n**Year:** {self.year}")
         return embed
+    def assign_player(self, discordid):
+        self.userid = discordid
+        user = nextcord.utils.get(self.userid)
+        if user is None:
+            raise ValueError(f"User with ID {discordid} does not exist on Discord.")
+        return None
     
     
 def latest_unused_column():

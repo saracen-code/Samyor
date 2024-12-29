@@ -24,9 +24,12 @@ async def on_ready():
     # Start the operations task once the bot is ready
     execute_operations.start()
 
+# Initialize the spreadsheet
 @bot.command()
 async def initialize(ctx):
     clcountry.initializeExistingCountries_asOBJ()
+
+clcountry.initializeExistingCountries_asOBJ()
 
 # Load and unload cogs
 if __name__ == "__main__":

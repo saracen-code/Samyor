@@ -56,5 +56,16 @@ class GameMasterCmds(commands.Cog):
     @commands.command(name="c.events", help="View the admin panel for events")
     async def country_events(self, ctx):
         pass
+    @commands.command(name="c.assign", help="Assign a player to a country")
+    async def country_assign(self, ctx, country: str, player: str):
+        obj = clcountry.obj_checker(country)
+        if not obj:
+            await ctx.send(f'{country} does not exist in our database.')
+            raise NameError(f'{country} does not exist in our database.')
+        obj.assign_player(player)
+        try:
+            await ctx.send(f'{player} has been assigned to {country}.')
+        except ValueError as e:
+            await ctx.send(f'{e}')
 def setup(bot):
     bot.add_cog(GameMasterCmds(bot))
