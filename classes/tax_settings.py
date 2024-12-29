@@ -38,6 +38,23 @@ class Tax:
         if not any(tax.country.name == self.country.name for tax in Tax.all_taxes):
             Tax.all_taxes.append(self)
         return None
+    def get_key(self, key):
+        if key == "land_tax":
+            return self.land_tax
+        elif key == "poll_tax":
+            return self.poll_tax
+        elif key == "rents":
+            return self.rents
+        elif key == "customs":
+            return self.customs
+        elif key == "tribute":
+            return self.tribute
+        elif key == "ransoms":
+            return self.ransoms
+        elif key == "central_demesne":
+            return self.central_demesne
+        else:
+            raise ValueError("Invalid tax type.")
     def update_tax(self, tax, value):
         if tax == "land_tax":
             self.land_tax = value
@@ -57,7 +74,7 @@ class Tax:
             raise ValueError("Invalid tax type.")
     def update_spreadsheet(self, key):
         location = so.convert_to_A1(TAX_INDEX[key], self.column)
-        so.update_cell(location, self.key, "Taxation")
+        so.update_cell(location, self.get_key(key), "Taxation")
     def increase_tax(self, tax, increase):
         self.update_tax(tax, TAX_INDEX[tax] + increase)
         self.update_spreadsheet(tax)
