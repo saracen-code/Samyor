@@ -155,6 +155,6 @@ def get_country_by_id(id):
         for country in Country.all_countries:
             print(Country.all_countries)
             print(country.userid, "compared with", id)
-            if country.userid == id:
+            if str(country.userid) == str(id):
                 return country
         return False
