@@ -124,6 +124,6 @@ def obj_checker(country_name):
 def get_attr_row(search_key: str):
     for key in ARCHIVE_INDEX:
         if search_key == key:
-            return ARCHIVE_INDEX[key]
+            return (ARCHIVE_INDEX[key] + 1)
     # otherwise
     raise KeyError(f"{search_key} is not a valid key.")
