@@ -35,8 +35,8 @@ class Tax:
         self.projected_revenue = 750000
         self.country = country
         self.column = country.column
-        if not any(country.name == self.name for country in Country.all_countries):
-            Country.all_countries.append(self)
+        if not any(tax.country.name == self.country.name for tax in Tax.all_taxes):
+            Tax.all_taxes.append(self)
         return None
     def update_tax(self, tax, value):
         if tax == "land_tax":
@@ -64,7 +64,7 @@ class Tax:
 def initialize():
     for country in Country.all_countries:
         listing = so.get_col(country.column, "Revenue Param.")
-        print("hey:", listing)
+        print(listing)
         obj = Tax(country) # initialize taxable countries
         obj.name = listing[0]
         obj.land_tax = listing[1]
