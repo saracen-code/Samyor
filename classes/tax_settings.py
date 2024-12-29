@@ -23,7 +23,7 @@ TAX_INDEX = {
 
 class Tax:
     all_taxes = []
-    def __init__(self, country=Country):
+    def __init__(self, country):
         self.name = "N/A"
         self.land_tax = 15
         self.poll_tax = 15
@@ -33,7 +33,8 @@ class Tax:
         self.ransoms = 15
         self.central_demesne = 15
         self.projected_revenue = 750000
-        self.country = "N/A"
+        self.country = country
+        self.column = country.column
         if not any(country.name == self.name for country in Country.all_countries):
             Country.all_countries.append(self)
         return None
@@ -73,3 +74,9 @@ def initialize():
         obj.tribute = listing[5]
         obj.ransoms = listing[6]
         obj.central_demesne = listing[7]
+
+def obj_checker(country):
+    for obj in Tax.all_taxes:
+        if obj.name == country:
+            return obj
+    return None
