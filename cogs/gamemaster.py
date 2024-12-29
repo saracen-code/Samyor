@@ -53,5 +53,8 @@ class GameMasterCmds(commands.Cog):
         # executing operation
         oe.execute_single_operation(id)
         await ctx.send(f'{key} has been updated to {value} for {country}.')
+    @commands.command(name="c.events", help="View the admin panel for events")
+    async def country_events(self, ctx):
+        pass
 def setup(bot):
     bot.add_cog(GameMasterCmds(bot))
