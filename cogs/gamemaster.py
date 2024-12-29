@@ -22,8 +22,9 @@ Commands pertaining to countries
 '''
 
 class GameMasterCmds(commands.Cog):
-    def __init__(self, bot):
-    async def create(self):  
+    def __init__(self, bot):  # Add the bot parameter to initialize the bot
+        self.bot = bot  # Assign bot to self.bot
+
     @commands.command(name="next_year", help="Move to next year, permitting players to calculate their revenues and more.")
     async def create(self, ctx):  
         print("hey")
@@ -54,24 +55,20 @@ class GameMasterCmds(commands.Cog):
         id = ow.update_cell(location, value, "Countries")
         # executing operation
         oe.execute_single_operation(id)
+        await ctx.send(f'{key} has been updated to {value} for {country}.')
     @commands.command(name="c.events", help="View the admin panel for events")
     async def country_events(self, ctx):
         pass
     @commands.command(name="c.assign", help="Assign a player to a country")
-    async def country_assign(self, ctx, country: str, discordid: str):
+    async def country_assign(self, ctx, country: str, player: str):
         obj = clcountry.obj_checker(country)
         if not obj:
             await ctx.send(f'{country} does not exist in our database.')
             raise NameError(f'{country} does not exist in our database.')
-        # Fetch the user asynchronously using fetch_user
+        obj.assign_player(player)
         try:
-            user = await self.bot.fetch_user(discordid)
-            # If the user exists, you can assign the ID
-            self.userid = discordid
-            return user
-        except nextcord.NotFound:
-            raise ValueError(f"User with ID {discordid} does not exist on Discord.")
-        except nextcord.HTTPException as e:
-            raise ValueError(f"Failed to fetch user with ID {discordid}. Error: {e}")
+            await ctx.send(f'{player} has been assigned to {country}.')
+        except ValueError as e:
+            await ctx.send(f'{e}')
 def setup(bot):
     bot.add_cog(GameMasterCmds(bot))
