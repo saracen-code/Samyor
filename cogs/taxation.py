@@ -23,17 +23,12 @@ class Taxation(commands.Cog):
             
             def check(m):
                 return m.author == ctx.author and m.channel == ctx.channel
-            try:
-                msg = await self.bot.wait_for('message', check=check, timeout=60)
-                country_name = msg.content
-                country = clcountry.get_country_by_name(country_name)
-                if not country:
-                    await ctx.send("No country found with that ID.")
-                    return
-            except asyncio.TimeoutError:
-                await ctx.send("You took too long to respond. Please try the command again.")
-                return
-        
+            msg = await self.bot.wait_for('message', check=check, timeout=60)
+            obj = clcountry.obj_checker(country)
+            if not obj:
+                await ctx.send(f'{country} does not exist in our database.')
+                raise NameError(f'{country} does not exist in our database.')
+            await ctx.send(f'{obj.name} has {obj.funds} coins left for use.')
         # Create the embed
         embed = nextcord.Embed(
             title="🏛️ Country Tax Manager",
