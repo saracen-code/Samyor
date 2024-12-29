@@ -79,15 +79,12 @@ class Tax:
         so.update_cell(location, value, "Taxation")
     def increase_tax(self, key, increase):
         initial = self.get_key(key)
-        print("starting money:", initial)
         total = int(initial) + int(increase)
-        print("after increase:", total)
         self.update_tax(key, total)
         self.update_spreadsheet(total, key)
     def decrease_tax(self, key, decrease):
         initial = self.get_key(key)
         total = int(initial) - int(decrease)
-        print(total)
         self.update_tax(key, total)
         self.update_spreadsheet(total, key)
 
