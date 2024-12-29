@@ -1,5 +1,8 @@
-import country as clcountry
-from country import Country
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import classes.country as clcountry
+from classes.country import Country
 import utils.sheetoperations as so
 
 COLUMN_START = 2
