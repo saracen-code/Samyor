@@ -62,8 +62,8 @@ class GameMasterCmds(commands.Cog):
         if not obj:
             await ctx.send(f'{country} does not exist in our database.')
             raise NameError(f'{country} does not exist in our database.')
-        obj.assign_player(player)
         try:
+            obj.assign_player(player)
             await ctx.send(f'{player} has been assigned to {country}.')
         except ValueError as e:
             await ctx.send(f'{e}')
