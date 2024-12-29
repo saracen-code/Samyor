@@ -22,6 +22,8 @@ Commands pertaining to countries
 '''
 
 class GameMasterCmds(commands.Cog):
+    def __init__(self, bot):
+    async def create(self):  
     @commands.command(name="next_year", help="Move to next year, permitting players to calculate their revenues and more.")
     async def create(self, ctx):  
         print("hey")
@@ -52,7 +54,6 @@ class GameMasterCmds(commands.Cog):
         id = ow.update_cell(location, value, "Countries")
         # executing operation
         oe.execute_single_operation(id)
-        await ctx.send(f'{key} has been updated to {value} for {country}.')
     @commands.command(name="c.events", help="View the admin panel for events")
     async def country_events(self, ctx):
         pass
