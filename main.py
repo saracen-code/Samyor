@@ -7,7 +7,9 @@ import utils.operations_writer as ow
 import utils.operations_executer as oe
 import classes.country as clcountry
 import asyncio
+import classes.tax_settings as tax
 from keys import TOKEN
+
 
 operations_refresh_time = 3  # seconds
 single_operation_time = 0.5  # seconds
@@ -29,7 +31,9 @@ async def on_ready():
 async def initialize(ctx):
     clcountry.initializeExistingCountries_asOBJ()
 
+# Initialize our classes with objects from the spreadsheet
 clcountry.initializeExistingCountries_asOBJ()
+tax.initialize()
 
 # Load and unload cogs
 if __name__ == "__main__":

@@ -60,13 +60,10 @@ def initialize():
         listing = so.get_col(country.column, "Revenue Param.")
         print(listing)
         obj = Tax(country) # initialize taxable countries
-        for key in TAX_INDEX:
-            print(key)
-            obj.land_tax = listing[1]
-            print("For this object: ", obj.land_tax)
-            obj.poll_tax = listing[2]
-            obj.rents = listing[3]
-            obj.customs = listing[4]
-            obj.tribute = listing[5]
-            obj.ransoms = listing[6]
-            obj.central_demesne = listing[7]
+        obj.land_tax = listing[1]
+        obj.poll_tax = listing[2]
+        obj.rents = listing[3]
+        obj.customs = listing[4]
+        obj.tribute = listing[5]
+        obj.ransoms = listing[6]
+        obj.central_demesne = listing[7]
