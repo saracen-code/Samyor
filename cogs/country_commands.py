@@ -1,7 +1,9 @@
 import nextcord
 from nextcord.ext import commands
 import classes.country as clcountry
+from classes.country import Country
 import classes.tax_settings as tax
+from classes.tax_settings import Tax
 
 '''
 Commands pertaining to countries
