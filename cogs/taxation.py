@@ -1,6 +1,9 @@
 import nextcord
 from nextcord.ext import commands
 from nextcord.ui import Button, View
+import classes.country as clcountry
+from classes.country import Country
+import asyncio
 
 class Taxation(commands.Cog):
     def __init__(self, bot):
@@ -8,7 +11,33 @@ class Taxation(commands.Cog):
 
     @commands.command(name="t.manage", help="Manage your country's taxes")
     async def tmanage(self, ctx):
-    # Create the embed
+        # Check if the user is an admin
+        if not ctx.author.guild_permissions.administrator:
+            # Search for the country object with the queryer's discordID
+            country = clcountry.get_country_by_discord_id(ctx.author.id)
+            if not country:
+                await ctx.send("You do not have a country assigned to you.")
+                return
+        else:
+            await ctx.send("You are an admin. Please provide the ID of the country you want to manage:")
+            
+            def check(m):
+                return m.author == ctx.author and m.channel == ctx.channel
+            try:
+                msg = await self.bot.wait_for('message', check=check, timeout=60)
+                country_id = int(msg.content)
+                country = clcountry.get_country_by_id(country_id)
+                if not country:
+                    await ctx.send("No country found with that ID.")
+                    return
+            except ValueError:
+                await ctx.send("Invalid ID format. Please enter a numeric country ID.")
+                return
+            except asyncio.TimeoutError:
+                await ctx.send("You took too long to respond. Please try the command again.")
+                return
+        
+        # Create the embed
         embed = nextcord.Embed(
             title="🏛️ Country Tax Manager",
             description=(
@@ -38,7 +67,6 @@ class Taxation(commands.Cog):
         # Create a view and add buttons to it
         view = View()
         view.add_item(increase_button)
-
         view.add_item(decrease_button)
         view.add_item(collect_button)
         view.add_item(stats_button)
