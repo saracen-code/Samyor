@@ -30,8 +30,6 @@ def execute_operations(operations):
             values = operation["values"]
             name = operation["file"]
             ws = so.worksheet(name)
-            if not cell_range.startswith(name + "!"):
-                cell_range = f"{name}!{cell_range}"
                 print("teat cell_range", cell_range)
             print(f"Updating range {cell_range} with values: {values}")
             ws.update(cell_range, values)
