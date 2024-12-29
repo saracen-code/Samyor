@@ -64,7 +64,7 @@ class Tax:
 def initialize():
     for country in Country.all_countries:
         listing = so.get_col(country.column, "Revenue Param.")
-        print(listing)
+        print("hey:", listing)
         obj = Tax(country) # initialize taxable countries
         obj.name = listing[0]
         obj.land_tax = listing[1]
