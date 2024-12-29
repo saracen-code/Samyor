@@ -73,17 +73,9 @@ class Country:
     def embedded(self):
         embed = Embed(title=f"{self.name}", description=f"**Funds:** {self.funds}\n**Population:** {self.population}\n**Capital:** {self.capital}\n**Currency:** {self.currency}\n**Languages:** {self.languages}\n**Provinces:** {self.provinces}\n**King:** {self.king}\n**Allies:** {self.allies}\n**Enemies:** {self.enemies}\n**Manpower:** {self.manpower}\n**Devastation:** {self.devastation}\n**Year:** {self.year}")
         return embed
-    async def assign_player(self, discordid):
-        # Fetch the user asynchronously using fetch_user
-        try:
-            user = await self.bot.fetch_user(discordid)
-            # If the user exists, you can assign the ID
-            self.userid = discordid
-            return user
-        except nextcord.NotFound:
-            raise ValueError(f"User with ID {discordid} does not exist on Discord.")
-        except nextcord.HTTPException as e:
-            raise ValueError(f"Failed to fetch user with ID {discordid}. Error: {e}")
+    def assign(self, player):
+        self.userid = player
+        return None
     
     
 def latest_unused_column():

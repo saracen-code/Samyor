@@ -65,10 +65,13 @@ class GameMasterCmds(commands.Cog):
         if not obj:
             await ctx.send(f'{country} does not exist in our database.')
             raise NameError(f'{country} does not exist in our database.')
-        obj.assign_player(player)
         try:
+            player_id = int(player.strip('<@!>'))
+            user = await self.bot.fetch_user(player_id)
+            obj.assign(player)
             await ctx.send(f'{player} has been assigned to {country}.')
-        except ValueError as e:
-            await ctx.send(f'{e}')
+        except (ValueError, nextcord.NotFound):
+            await ctx.send(f'{player} is not a valid Discord user.')
+            return
 def setup(bot):
     bot.add_cog(GameMasterCmds(bot))
