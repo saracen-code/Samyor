@@ -25,15 +25,11 @@ class Taxation(commands.Cog):
                 return m.author == ctx.author and m.channel == ctx.channel
             try:
                 msg = await self.bot.wait_for('message', check=check, timeout=60)
-                country_id = int(msg.content)
                 country_name = msg.content
                 country = clcountry.get_country_by_name(country_name)
                 if not country:
                     await ctx.send("No country found with that ID.")
                     return
-            except ValueError:
-                await ctx.send("Invalid ID format. Please enter a numeric country ID.")
-                return
             except asyncio.TimeoutError:
                 await ctx.send("You took too long to respond. Please try the command again.")
                 return
