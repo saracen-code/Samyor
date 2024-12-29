@@ -99,6 +99,12 @@ class Taxation(commands.Cog):
             await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj))
         return callback
 
+    def collect_taxes_callback(self, taxobj, countryobj, ctx):
+        async def callback(interaction):
+            # Implement the logic for collecting taxes here
+            await interaction.response.send_message("Taxes have been collected.")
+        return callback
+
     def view_stats_callback(self, taxobj, countryobj, ctx):
         async def callback(interaction):
             await interaction.response.send_message(f"Current funds: {countryobj.funds}")
