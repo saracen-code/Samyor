@@ -72,15 +72,24 @@ class Tax:
             self.central_demesne = value
         else:
             raise ValueError("Invalid tax type.")
-    def update_spreadsheet(self, key):
+    def update_spreadsheet(self, value, key):
         location = so.convert_to_A1(TAX_INDEX[key] + 1, self.column)
-        so.update_cell(location, self.get_key(key), "Taxation")
+        print(location)
+        print(value)
+        so.update_cell(location, value, "Taxation")
     def increase_tax(self, tax, increase):
-        self.update_tax(tax, TAX_INDEX[tax] + increase)
+        initial = self.get_key(tax)
+        print(initial)
+        total = initial + increase
+        print(total)
+        self.update_tax(tax, total)
         self.update_spreadsheet(tax)
     def decrease_tax(self, tax, decrease):
-        self.update_tax(tax, TAX_INDEX[tax] - decrease)
-    
+        initial = self.get_key(tax)
+        total = initial - decrease
+        print(total)
+        self.update_tax(tax, total)
+        self.update_spreadsheet(total, tax)
 
 
 def initialize():
