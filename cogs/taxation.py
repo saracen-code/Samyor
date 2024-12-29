@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-from nextcord.ui import Button
+from nextcord.ui import Button, View
 
 class Taxation(commands.Cog):
     def __init__(self, bot):
@@ -36,6 +36,7 @@ class Taxation(commands.Cog):
         # Create a view and add buttons to it
         view = View()
         view.add_item(increase_button)
+        decrease_button = Button(label="Decrease Land Tax", style=nextcord.ButtonStyle.danger, emoji="🔻")
         view.add_item(decrease_button)
         view.add_item(collect_button)
         view.add_item(stats_button)
