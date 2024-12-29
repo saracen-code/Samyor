@@ -26,7 +26,8 @@ class Taxation(commands.Cog):
             try:
                 msg = await self.bot.wait_for('message', check=check, timeout=60)
                 country_id = int(msg.content)
-                country = clcountry.get_country_by_id(country_id)
+                country_name = msg.content
+                country = clcountry.get_country_by_name(country_name)
                 if not country:
                     await ctx.send("No country found with that ID.")
                     return

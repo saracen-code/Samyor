@@ -87,6 +87,11 @@ class Country:
         self.userid = player
         self.update_values("userid", player)
         return None
+    def get_country_by_name(name):
+        for country in Country.all_countries:
+            if country.name == name:
+                return country
+        return False
     
     
 def latest_unused_column():
