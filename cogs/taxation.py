@@ -35,8 +35,9 @@ class Taxation(commands.Cog):
                 raise NameError(f'{country} does not exist in our database.')
             country = msg.content
         # Create the embed
-        obj = tax.obj_checker(country)
-
+        taxobj = tax.obj_checker(country)
+        countryobj = clcountry.obj_checker(country)
+        print(f"succesfully found {countryobj} and {taxobj}")
         embed = nextcord.Embed(
             title="🏛️ Country Tax Manager",
             description=(
@@ -49,12 +50,12 @@ class Taxation(commands.Cog):
                 f"📊 **Tribute:** {str(taxobj.tribute)}\n"
                 f"📊 **Ransom:** {str(taxobj.ransom)}\n"
                 f"📊 **Central Demesne:** {str(taxobj.domains)}\n"
-                f"📈 **Projected Revenue:** W.I.P.\n\n"
+                f"📈 **Projected Revenue:** {str(countryobj.funds)}\n\n"
                 "_Select an option below to manage your country's economy._"
             ),
             color=nextcord.Color.blue()
         )
-        embed.set_thumbnail(url="https://example.com/tax_icon.png")  # Replace with a relevant image URL
+        embed.set_thumbnail(url="https://img.freepik.com/premium-photo/medieval-florentine-banking-scene-illustration_818261-29255.jpg")  # Replace with a relevant image URL
         embed.set_footer(text="Country Tax Manager | Powered by SamyorBOT")
 
         # Create buttons
