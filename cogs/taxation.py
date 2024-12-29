@@ -14,12 +14,12 @@ class Taxation(commands.Cog):
         # Check if the user is an admin
         if not ctx.author.guild_permissions.administrator:
             # Search for the country object with the queryer's discordID
-            country = clcountry.get_country_by_discord_id(ctx.author.id)
+            country = clcountry.get_country_by_id(ctx.author.id)
             if not country:
                 await ctx.send("You do not have a country assigned to you.")
                 return
         else:
-            await ctx.send("You are an admin. Please provide the ID of the country you want to manage:")
+            await ctx.send("You are an admin. Please provide the name of the country you want to manage:")
             
             def check(m):
                 return m.author == ctx.author and m.channel == ctx.channel
@@ -28,7 +28,6 @@ class Taxation(commands.Cog):
             if not obj:
                 await ctx.send(f'{country} does not exist in our database.')
                 raise NameError(f'{country} does not exist in our database.')
-            await ctx.send(f'{obj.name} has {obj.funds} coins left for use.')
         # Create the embed
         embed = nextcord.Embed(
             title="🏛️ Country Tax Manager",
