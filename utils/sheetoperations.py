@@ -100,3 +100,7 @@ def upd_country_col(col: int, values: list):
     flat_values = [item for sublist in values for item in sublist]
     ws.update(cell_range, [[value] for value in flat_values])  # Ensure correct data structure
 
+def update_cell(cell: str, value, name: str):
+  ws = worksheet(name)
+  ws.update(cell, value)
+  return
