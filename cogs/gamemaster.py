@@ -70,6 +70,9 @@ class GameMasterCmds(commands.Cog):
             user = await self.bot.fetch_user(player_id)
             obj.assign(player)
             await ctx.send(f'{player} has been assigned to {country}.')
+            await ctx.send(f'Updating the spreadsheet...')
+            location = so.A1_get_valcell(obj.column, clcountry.get_attr_row("userid"))
+            ow.update_cell(location, player_id, "Countries")
         except (ValueError, nextcord.NotFound):
             await ctx.send(f'{player} is not a valid Discord user.')
             return

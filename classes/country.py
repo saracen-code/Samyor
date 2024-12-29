@@ -75,6 +75,7 @@ class Country:
         return embed
     def assign(self, player):
         self.userid = player
+        self.update_values("userid", player)
         return None
     
     
