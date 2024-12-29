@@ -153,7 +153,7 @@ def get_attr_row(search_key: str):
     raise KeyError(f"{search_key} is not a valid key.")
 def get_country_by_id(id):
         for country in Country.all_countries:
-            print(country.all_countries)
+            print(Country.all_countries)
             print(country.userid, "compared with", id)
             if country.userid == id:
                 return country
