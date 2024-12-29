@@ -33,10 +33,13 @@ class Taxation(commands.Cog):
             if not country:
                 await ctx.send(f'{country} does not exist in our database.')
                 raise NameError(f'{country} does not exist in our database.')
-            country = msg.content
+        country = msg.content
         # Create the embed
         taxobj = tax.obj_checker(country)
         countryobj = clcountry.obj_checker(country)
+        if not taxobj or not countryobj:
+            await ctx.send(f"Could not find tax or country data for {country}.")
+            return
         print(f"succesfully found {countryobj} and {taxobj}")
         embed = nextcord.Embed(
             title="🏛️ Country Tax Manager",
