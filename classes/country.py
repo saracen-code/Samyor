@@ -127,6 +127,11 @@ def initializeExistingCountries_asOBJ(): # This command won't use the operations
             new_country.archive["manpower"] = country[10]
             new_country.archive["devastation"] = country[11]
             new_country.archive["year"] = country[12]
+            new_country.archive["userid"] = country[13]
+            new_country.archive["growth rate"] = country[14]
+            new_country.archive["population capacity"] = country[15]
+            new_country.archive["provincial player id"] = country[16]
+            new_country.archive["taxes collected?"] = country[17]
             # Update the country attributes with the data from the archive
             for key in new_country.archive:
                 setattr(new_country, key, new_country.archive[key]) 
