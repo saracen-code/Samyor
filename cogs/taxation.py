@@ -24,7 +24,7 @@ class Taxation(commands.Cog):
             def check(m):
                 return m.author == ctx.author and m.channel == ctx.channel
             msg = await self.bot.wait_for('message', check=check, timeout=60)
-            obj = clcountry.obj_checker(country)
+            obj = clcountry.obj_checker(msg.content)
             if not obj:
                 await ctx.send(f'{country} does not exist in our database.')
                 raise NameError(f'{country} does not exist in our database.')
