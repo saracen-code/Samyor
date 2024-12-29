@@ -2,12 +2,12 @@ import nextcord
 from nextcord.ext import commands
 from nextcord.ui import Button
 
-class CountryTaxManager(commands.Cog):
+class Taxation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
-    async def tax_manager(self, ctx):
+    async def t.    manage(self, ctx):
         # Access ctx to avoid unused variable warning
         _ = ctx
         # Create the embed
@@ -46,3 +46,5 @@ class CountryTaxManager(commands.Cog):
         await ctx.send(embed=embed, view=view)
         collect_button = Button(label="Collect Annual Taxes", style=nextcord.ButtonStyle.success, emoji="💰")
         stats_button = Button(label="View Stats", style=nextcord.ButtonStyle.primary, emoji="📊")
+def setup(bot):
+    bot.add_cog(Taxation(bot))
