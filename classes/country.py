@@ -92,6 +92,11 @@ class Country:
             if country.name == name:
                 return country
         return False
+    def get_country_by_id(id):
+        for country in Country.all_countries:
+            if country.userid == id:
+                return country
+        return False
     
     
 def latest_unused_column():
