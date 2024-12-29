@@ -22,7 +22,12 @@ ARCHIVE_INDEX = {
     "enemies": 9,
     "manpower": 10,
     "devastation": 11,
-    "year": 12
+    "year": 12,
+    "userid": 13,
+    "growth rate": 14,
+    "population capacity": 15,
+    "provincial player id": 16,
+    "taxes collected?": 17
 }
 
 class Country:
@@ -33,29 +38,34 @@ class Country:
         self.userid = userid
         self.funds = 0
         self.population = 0
-        self.capital = ""
-        self.currency = ""
-        self.languages = ""
-        self.provinces = ""
-        self.king = ""
-        self.allies = ""
-        self.enemies = ""
+        self.capital = "N/A"
+        self.currency = "N/A"
+        self.languages = "N/A"
+        self.provinces = "N/A"
+        self.king = "N/A"
+        self.allies = "N/A"
+        self.enemies = "N/A"
         self.manpower = 0
         self.devastation = 0
         self.year = 1753
         self.archive = {
             "funds": 0,
             "population": 0,
-            "capital": "",
-            "currency": "",
-            "languages": "",
-            "provinces": "",
-            "king": "",
-            "allies": "",
-            "enemies": "",
+            "capital": "N/A",
+            "currency": "N/A",
+            "languages": "N/A",
+            "provinces": "N/A",
+            "king": "N/A",
+            "allies": "N/A",
+            "enemies": "N/A",
             "manpower": 0,
             "devastation": 0,
-            "year": 1753
+            "year": 1753,
+            "player id": userid,
+            "growth rate": 0,
+            "population capacity": 0,
+            "provincial player id": "N/A",
+            "taxes collected?": False
         }
         if not any(country.name == self.name for country in Country.all_countries):
             Country.all_countries.append(self)
