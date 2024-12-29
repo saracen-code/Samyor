@@ -52,7 +52,7 @@ class Taxation(commands.Cog):
                 f"📊 **Customs:** {str(taxobj.customs)}\n"
                 f"📊 **Tribute:** {str(taxobj.tribute)}\n"
                 f"📊 **Ransoms:** {str(taxobj.ransoms)}\n"
-                f"📊 **Central Demesne:** {str(taxobj.domains)}\n"
+                f"📊 **Central Demesne:** {str(taxobj.central_demesne)}\n"
                 f"📈 **Projected Revenue:** {str(countryobj.funds)}\n\n"
                 "_Select an option below to manage your country's economy._"
             ),
