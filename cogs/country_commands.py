@@ -31,6 +31,13 @@ class CountryCmds(commands.Cog):
             await ctx.send(f'{country} does not exist in our database.')
             raise NameError(f'{country} does not exist in our database.')
         await ctx.send(f'{obj.name} is in column {obj.column}.')
+    @commands.command(name="country_owner", help="Check the owner of a country")
+    async def country_owner(self, ctx, country: str):
+        obj = clcountry.obj_checker(country)
+        if not obj:
+            await ctx.send(f'{country} does not exist in our database.')
+            raise NameError(f'{country} does not exist in our database.')
+        await ctx.send(f'{obj.name} is owned by <@{obj.userid}>.')
 
 def setup(bot):
     bot.add_cog(CountryCmds(bot))

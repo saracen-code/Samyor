@@ -92,11 +92,6 @@ class Country:
             if country.name == name:
                 return country
         return False
-    def get_country_by_id(id):
-        for country in Country.all_countries:
-            if country.userid == id:
-                return country
-        return False
     
     
 def latest_unused_column():
@@ -151,3 +146,8 @@ def get_attr_row(search_key: str):
             return (ARCHIVE_INDEX[key] + 1)
     # otherwise
     raise KeyError(f"{search_key} is not a valid key.")
+def get_country_by_id(id):
+        for country in Country.all_countries:
+            if country.userid == id:
+                return country
+        return False
