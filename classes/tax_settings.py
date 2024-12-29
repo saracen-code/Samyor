@@ -14,8 +14,8 @@ TAX_INDEX = {
     "rents": 3,
     "customs": 4,
     "tribute": 5,
-    "ransom": 6,
-    "domains": 7,
+    "ransoms": 6,
+    "central_demesne": 7,
     "slot1": 8,
     "slot2": 9,
     "slot3": 10,
@@ -55,10 +55,15 @@ class Tax:
             self.central_demesne = value
         else:
             raise ValueError("Invalid tax type.")
+    def update_spreadsheet(self, key):
+        location = so.convert_to_A1(TAX_INDEX[key], self.column)
+        so.update_cell(location, self.key, "Taxation")
     def increase_tax(self, tax, increase):
-        self.update_tax(tax, self.__dict__[tax] + increase)
+        self.update_tax(tax, TAX_INDEX[tax] + increase)
+        self.update_spreadsheet(tax)
     def decrease_tax(self, tax, decrease):
-        self.update_tax(tax, self.__dict__[tax] - decrease)
+        self.update_tax(tax, TAX_INDEX[tax] - decrease)
+    
 
 
 def initialize():
