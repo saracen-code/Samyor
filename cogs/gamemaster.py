@@ -57,15 +57,20 @@ class GameMasterCmds(commands.Cog):
     async def country_events(self, ctx):
         pass
     @commands.command(name="c.assign", help="Assign a player to a country")
-    async def country_assign(self, ctx, country: str, player: str):
+    async def country_assign(self, ctx, country: str, discordid: str):
         obj = clcountry.obj_checker(country)
         if not obj:
             await ctx.send(f'{country} does not exist in our database.')
             raise NameError(f'{country} does not exist in our database.')
+        # Fetch the user asynchronously using fetch_user
         try:
-            obj.assign_player(player)
-            await ctx.send(f'{player} has been assigned to {country}.')
-        except ValueError as e:
-            await ctx.send(f'{e}')
+            user = await self.bot.fetch_user(discordid)
+            # If the user exists, you can assign the ID
+            self.userid = discordid
+            return user
+        except nextcord.NotFound:
+            raise ValueError(f"User with ID {discordid} does not exist on Discord.")
+        except nextcord.HTTPException as e:
+            raise ValueError(f"Failed to fetch user with ID {discordid}. Error: {e}")
 def setup(bot):
     bot.add_cog(GameMasterCmds(bot))
