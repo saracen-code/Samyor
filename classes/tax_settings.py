@@ -55,7 +55,7 @@ class Tax:
         self.update_tax(tax, self.__dict__[tax] - decrease)
 
 
-def initialize(self, country):
+def initialize():
     for country in Country.all_countries:
         listing = so.get_column(country.column, "Revenue Param.")
         print(listing)
