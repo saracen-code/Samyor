@@ -42,14 +42,14 @@ class Taxation(commands.Cog):
             description=(
                 "Manage taxes for your country with ease! Use the buttons below to perform actions.\n\n"
                 "**Current Status:**\n"
-                f"📊 **Land Tax:** {str(obj.land_tax)}\n"
-                "📊 **Poll Tax:** 15%\n"
-                "📊 **Rents:** 15%\n"
-                "📊 **Customs:** 15%\n"
-                "📊 **Tribute:** 15%\n"
-                "📊 **Ransoms:** 15%\n"
-                "📊 **Central Demesne:** 15%\n"
-                "📈 **Projected Revenue:** 750,000 Gold\n\n"
+                f"📊 **Land Tax:** {str(taxobj.land_tax)}\n"
+                f"📊 **Poll Tax:** {str(taxobj.poll_tax)}\n"
+                f"📊 **Rents:** {str(taxobj.rents)}\n"
+                f"📊 **Customs:** {str(taxobj.customs)}\n"
+                f"📊 **Tribute:** {str(taxobj.tribute)}\n"
+                f"📊 **Ransom:** {str(taxobj.ransom)}\n"
+                f"📊 **Central Demesne:** {str(taxobj.domains)}\n"
+                f"📈 **Projected Revenue:** W.I.P.\n\n"
                 "_Select an option below to manage your country's economy._"
             ),
             color=nextcord.Color.blue()
