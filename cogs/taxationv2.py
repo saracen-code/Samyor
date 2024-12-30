@@ -65,6 +65,7 @@ class TaxationV2(commands.Cog):
     def create_embed(self, page: int, country: str):
         """Creates an embed for the given page."""
         embed = nextcord.Embed(title=f"__Taxation Management:__ {country}", color=nextcord.Color(0xD3A839))
+        country = clcountry.obj_checker(country)
         if page == 1:
             # List of different randomized descriptions
             descriptions = [
