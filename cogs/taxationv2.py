@@ -8,7 +8,7 @@ import asyncio
 import classes.tax_settings as tax
 from classes.tax_settings import Tax
 
-class Taxation(commands.Cog):
+class TaxationV2(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.hover_tax_type = {}  # Dictionary to track the selected tax type per user
@@ -110,3 +110,5 @@ class Taxation(commands.Cog):
             button.callback = button_callback
 
         return view
+def setup(bot):
+    bot.add_cog(TaxationV2(bot))
