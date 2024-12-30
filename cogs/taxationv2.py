@@ -24,8 +24,8 @@ class TaxationV2(commands.Cog):
             "annual_taxes": 15
         }
 
-    @commands.command(name="t.manage", help="Rank: Leader | Descr.: Control panel to manage taxes for your country.")
-    async def tmanage(self, ctx):
+    @commands.command(name="taxation_manage", help="Rank: Leader | Descr.: Control panel to manage taxes for your country.")
+    async def taxationmanage(self, ctx):
         country = None
         
         if not ctx.author.guild_permissions.administrator:
