@@ -119,9 +119,17 @@ class TaxationV2(commands.Cog):
                 
                 async def increase_callback(inter):
                     # Use the taxobj to call the increase_tax method
-                    taxobj.increase_tax(tax_type, 1)
+                    try:
+                        taxobj.increase_tax(tax_type, 1)
+                    except ValueError as e:
+                        await inter.response.send_message(str(e), ephemeral=True)
+                        return
                     embed_updated = self.create_embed(page, country)
-                    await inter.response.edit_message(embed=embed_updated, view=self.create_view(ctx, country))
+                    try:
+                        taxobj.decrease_tax(tax_type, 1)
+                    except ValueError as e:
+                        await inter.response.send_message(str(e), ephemeral=True)
+                        return
                 
                 async def decrease_callback(inter):
                     # Use the taxobj to call the decrease_tax method (assuming you have this method)
