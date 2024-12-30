@@ -47,7 +47,7 @@ class Market(commands.Cog):
         embed.add_field(
             name="**Food & Supplies**",
             value=(
-                "![🍞](https://example.com/bread_icon.png) **Loaf of Bread**: 5 gold\n"
+                "![🍞](https://i.ibb.co/Fz6GNL9/fertilize-10492736-1.png) **Flour (0.45 kg)**: 5 gold\n"
                 "![🧪](https://example.com/potion_icon.png) **Healing Potion**: 20 gold\n"
                 "![🎒](https://example.com/rations_icon.png) **Travel Rations**: 10 gold\n"
                 "![🔥](https://example.com/torch_icon.png) **Torch**: 2 gold"
@@ -59,7 +59,7 @@ class Market(commands.Cog):
         embed.add_field(
             name="**Special Items**",
             value=(
-                "![💍](https://example.com/ring_icon.png) **Ring of Protection**: 300 gold\n"
+                "![💍](https://i.ibb.co/wzSyGDC/gem-4752251.png) **Jewel**: 300 gold\n"
                 "![⚡](https://example.com/amulet_icon.png) **Amulet of Strength**: 400 gold\n"
                 "![👁️](https://example.com/invisibility_icon.png) **Potion of Invisibility**: 500 gold\n"
                 "![📜](https://example.com/scroll_icon.png) **Mystic Scroll**: 350 gold"
@@ -68,7 +68,7 @@ class Market(commands.Cog):
         )
         embed.set_author(
             name="Ghallab Market",
-            icon_url="https://live.staticflickr.com/65535/54235387279_957374bab4_b.jpg")  # Replace with your castle image URL
+            icon_url="https://i.ibb.co/rpKG9Rw/stall-10492800.png")  # Replace with your castle image URL
         embed.set_footer(text="Type '!buy [item name]' to purchase an item.")
         embed.set_thumbnail(url="https://live.staticflickr.com/65535/54235510505_83546d60fa_b.jpg")  # Replace with your image URL
         embed.set_image(url="https://cdna.artstation.com/p/assets/images/images/056/537/630/large/jama-jurabaev-shot1.jpg?1669500016")  # Replace with your banner image URL
