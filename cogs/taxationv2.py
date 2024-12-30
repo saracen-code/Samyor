@@ -125,11 +125,6 @@ class TaxationV2(commands.Cog):
                         await inter.response.send_message(str(e), ephemeral=True)
                         return
                     embed_updated = self.create_embed(page, country)
-                    try:
-                        taxobj.decrease_tax(tax_type, 1)
-                    except ValueError as e:
-                        await inter.response.send_message(str(e), ephemeral=True)
-                        return
                 
                 async def decrease_callback(inter):
                     # Use the taxobj to call the decrease_tax method (assuming you have this method)
