@@ -10,13 +10,11 @@ from classes.tax_settings import Tax
 class Taxation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.hover_tax_type = {}  # Dictionary to track the selected tax type per user
+        self.hover_tax_type = {}
 
     @commands.command(name="t.manage", help="Manage your country's taxes")
     async def tmanage(self, ctx):
-        # Check if the user is an admin
         if not ctx.author.guild_permissions.administrator:
-            # Search for the country object with the queryer's discordID
             country = clcountry.get_country_by_id(ctx.author.id)
             if not country:
                 await ctx.send("You do not have a country assigned to you.")
@@ -34,7 +32,6 @@ class Taxation(commands.Cog):
                 return
             country = msg.content
 
-        # Create the embed
         taxobj = tax.obj_checker(country)
         countryobj = clcountry.obj_checker(country)
         if not taxobj or not countryobj:
@@ -42,8 +39,6 @@ class Taxation(commands.Cog):
             return
 
         embed = self.create_embed(taxobj, countryobj, ctx.author.id)
-
-        # Send the embed with the view
         await ctx.send(embed=embed, view=self.create_main_view(taxobj, countryobj, ctx))
 
     def create_embed(self, taxobj, countryobj, user_id):
@@ -62,18 +57,18 @@ class Taxation(commands.Cog):
         for key, label in taxes.items():
             value = getattr(taxobj, key)
             if key == hover_tax:
-                description += f"__{label} {str(value)}__\n"
+                description += f"__{label} {value}__\n"
             else:
-                description += f"{label} {str(value)}\n"
+                description += f"{label} {value}\n"
 
-        description += f"📈 **Projected Revenue:** {str(countryobj.funds)}\n\n_Select an option below to manage your country's economy._"
+        description += f"📈 **Projected Revenue:** {countryobj.funds}\n\n_Select an option below to manage your country's economy._"
 
         embed = nextcord.Embed(
             title="🏛️ Country Tax Manager",
             description=description,
             color=nextcord.Color.blue()
         )
-        embed.set_thumbnail(url="https://img.freepik.com/premium-photo/medieval-florentine-banking-scene-illustration_818261-29255.jpg")  # Replace with a relevant image URL
+        embed.set_thumbnail(url="https://img.freepik.com/premium-photo/medieval-florentine-banking-scene-illustration_818261-29255.jpg")
         embed.set_footer(text="Country Tax Manager | Powered by SamyorBOT")
         return embed
 
@@ -81,7 +76,7 @@ class Taxation(commands.Cog):
         embed = nextcord.Embed(
             title="🔄 Select Tax Type",
             description=(
-                "Choose which tax type to hover over. Use the buttons below to select a tax type:\n\n"
+                "Choose which tax type to hover over:\n\n"
                 "**Available Taxes:**\n"
                 "1️⃣ **Land Tax**\n"
                 "2️⃣ **Poll Tax**\n"
@@ -94,31 +89,24 @@ class Taxation(commands.Cog):
             color=nextcord.Color.green()
         )
 
-        # Buttons for selecting tax type
         view = View()
         taxes = ["land_tax", "poll_tax", "rents", "customs", "tribute", "ransoms", "central_demesne"]
         for idx, tax_type in enumerate(taxes, start=1):
-            button = Button(label=f"{tax_type.replace('_', ' ').title()}", style=nextcord.ButtonStyle.secondary, emoji=f"{idx}️⃣")
-
-            async def tax_callback(interaction, tax_type=tax_type):
+            button = Button(label=tax_type.replace('_', ' ').title(), style=nextcord.ButtonStyle.secondary, emoji=f"{idx}️⃣")
+            async def tax_callback(inter, tax_type=tax_type):
                 self.hover_tax_type[ctx.author.id] = tax_type
-                embed = self.create_embed(taxobj, countryobj, ctx.author.id)
-                await interaction.response.edit_message(embed=embed, view=self.create_main_view(taxobj, countryobj, ctx))
-
+                embed_main = self.create_embed(taxobj, countryobj, ctx.author.id)
+                await inter.response.edit_message(embed=embed_main, view=self.create_main_view(taxobj, countryobj, ctx))
             button.callback = tax_callback
             view.add_item(button)
 
-        # Add a button to return to the main page
         back_button = Button(label="Back to Main Page", style=nextcord.ButtonStyle.primary, emoji="⬅️")
-
-        async def back_callback(interaction):
-            embed = self.create_embed(taxobj, countryobj, ctx.author.id)
-            await interaction.response.edit_message(embed=embed, view=self.create_main_view(taxobj, countryobj, ctx))
-
+        async def back_callback(inter):
+            embed_main = self.create_embed(taxobj, countryobj, ctx.author.id)
+            await inter.response.edit_message(embed=embed_main, view=self.create_main_view(taxobj, countryobj, ctx))
         back_button.callback = back_callback
         view.add_item(back_button)
 
-        # Send the tax selector embed with buttons
         await interaction.response.edit_message(embed=embed, view=view)
 
     def create_main_view(self, taxobj, countryobj, ctx):
@@ -129,14 +117,12 @@ class Taxation(commands.Cog):
         stats_button = Button(label="View Stats", style=nextcord.ButtonStyle.primary, emoji="📊")
         switch_button = Button(label="Switch to Tax Selector", style=nextcord.ButtonStyle.secondary, emoji="🔄")
 
-        # Add callbacks to buttons
         increase_button.callback = self.increase_tax_callback(taxobj, countryobj, ctx)
         decrease_button.callback = self.decrease_tax_callback(taxobj, countryobj, ctx)
         collect_button.callback = self.collect_taxes_callback(taxobj, countryobj, ctx)
         stats_button.callback = self.view_stats_callback(taxobj, countryobj, ctx)
         switch_button.callback = self.assign_switch_callback(taxobj, countryobj, ctx)
 
-        # Add buttons to the view
         view.add_item(increase_button)
         view.add_item(decrease_button)
         view.add_item(collect_button)
@@ -165,7 +151,6 @@ class Taxation(commands.Cog):
 
     def collect_taxes_callback(self, taxobj, countryobj, ctx):
         async def callback(interaction):
-            # Implement the logic for collecting taxes here
             await interaction.response.send_message("Taxes have been collected.")
         return callback
 
@@ -173,7 +158,6 @@ class Taxation(commands.Cog):
         async def callback(interaction):
             await interaction.response.send_message(f"Current funds: {countryobj.funds}")
         return callback
-
 
 def setup(bot):
     bot.add_cog(Taxation(bot))
