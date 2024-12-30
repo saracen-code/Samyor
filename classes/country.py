@@ -97,8 +97,6 @@ class Country:
 def latest_unused_column():
     return so.unfilled_row("Countries", 1)
 
-print(str(latest_unused_column()))
-
 def initializeExistingCountries_asOBJ(): # This command won't use the operations system.()
     # Find the number of filled columns in row 1
     try:
@@ -109,7 +107,6 @@ def initializeExistingCountries_asOBJ(): # This command won't use the operations
             countries.append(so.get_col(i, "Countries"))
         col = 2
         for country in countries:
-            print(country)
             # Create a country with the data from the sheet
             name = country[0]
             new_country = Country(name, 0)
