@@ -120,7 +120,7 @@ class TaxationV2(commands.Cog):
                     # Use the taxobj to call the increase_tax method
                     try:
                         taxobj.increase_tax(tax_type, 1)
-                        self.tax_data[tax_type] = taxobj.get_tax_value(tax_type)  # Update the dictionary value
+                        self.tax_data[tax_type] = taxobj.get_key(tax_type)  # Update the dictionary value
                     except ValueError as e:
                         await inter.response.send_message(str(e), ephemeral=True)
                         return
@@ -131,7 +131,7 @@ class TaxationV2(commands.Cog):
                     # Use the taxobj to call the decrease_tax method (assuming you have this method)
                     try:
                         taxobj.decrease_tax(tax_type, 1)
-                        self.tax_data[tax_type] = taxobj.get_tax_value(tax_type)  # Update the dictionary value
+                        self.tax_data[tax_type] = taxobj.get_key(tax_type)  # Update the dictionary value
                     except ValueError as e:
                         await inter.response.send_message(str(e), ephemeral=True)
                         return
