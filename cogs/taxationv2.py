@@ -44,6 +44,7 @@ class TaxationV2(commands.Cog):
         taxobj = tax.obj_checker(country)
         countryobj = clcountry.obj_checker(country)
 
+
         # Update tax_data dictionary with actual tax data
         if taxobj and countryobj:
             self.tax_data = {
@@ -113,8 +114,15 @@ class TaxationV2(commands.Cog):
             embed = self.create_embed(page, country)
             new_view = self.create_view(ctx, country)
             if 2 <= page <= 9:
-                new_view.add_item(Button(label="Increase", style=nextcord.ButtonStyle.success, custom_id="increase"))
-                new_view.add_item(Button(label="Decrease", style=nextcord.ButtonStyle.danger, custom_id="decrease"))
+                increase_button = Button(label="Increase", style=nextcord.ButtonStyle.success, custom_id="increase")
+                decrease_button = Button(label="Decrease", style=nextcord.ButtonStyle.danger, custom_id="decrease")
+                
+                # Add callbacks to buttons
+                increase_button.callback = self.increase_tax_callback(self.tax_data, country, ctx)
+                decrease_button.callback = self.decrease_tax_callback(self.tax_data, country, ctx)
+                
+                new_view.add_item(increase_button)
+                new_view.add_item(decrease_button)
             await interaction.response.edit_message(embed=embed, view=new_view)
 
         # Add navigation buttons for each page
