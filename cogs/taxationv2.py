@@ -16,6 +16,9 @@ class TaxationV2(commands.Cog):
         # Load the tax descriptions from the JSON file
         with open('texts/tax_description.json', 'r') as f:
             self.tax_descriptions = json.load(f)["descriptions"]
+        # Load the table of contents from JSON
+        with open("text/tax_table_of_contents.json", "r") as f:
+            self.table_of_contents = json.load(f)["table_of_contents"]
 
     @commands.command(name="taxation_manage", help="Rank: Leader | Descr.: Control panel to manage taxes for your country.")
     async def taxationmanage(self, ctx):
@@ -81,6 +84,10 @@ class TaxationV2(commands.Cog):
             # Add each chunk of the description as a separate field
             for idx, field in enumerate(fields):
                 embed.add_field(name=f"Page {page} - Part {idx+1}", value=field, inline=False)
+
+            # Add each item of the Table of Contents as a separate field
+            for idx, item in enumerate(self.table_of_contents, 2):
+                embed.add_field(name=f"Tax {idx}", value=item, inline=False)
             
             # Embed banner image
             embed.set_image(url="https://live.staticflickr.com/65535/54234146062_23aed5e9c8_b.jpg")  # Replace with your own image URL
