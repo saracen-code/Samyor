@@ -100,10 +100,12 @@ class TaxationV2(commands.Cog):
                 return
             page = int(interaction.data["custom_id"].split("_")[1])
         async def button_callback(interaction: nextcord.Interaction):
+            page = int(interaction.data["custom_id"].split("_")[1])
             new_view = self.create_view(ctx, country)
             if 2 <= page <= 9:
                 new_view.add_item(Button(label="Increase", style=nextcord.ButtonStyle.success, custom_id="increase"))
                 new_view.add_item(Button(label="Decrease", style=nextcord.ButtonStyle.danger, custom_id="decrease"))
+            embed = self.create_embed(page, country)
             await interaction.response.edit_message(embed=embed, view=new_view)
 
         for button in view.children:
