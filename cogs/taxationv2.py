@@ -118,8 +118,8 @@ class TaxationV2(commands.Cog):
                 decrease_button = Button(label="Decrease", style=nextcord.ButtonStyle.danger, custom_id="decrease")
                 
                 # Add callbacks to buttons
-                increase_button.callback = self.increase_tax_callback(self.tax_data, country, ctx)
-                decrease_button.callback = self.decrease_tax_callback(self.tax_data, country, ctx)
+                increase_button.callback = lambda interaction, tax_type=tax_type: self.increase_tax_callback(interaction, tax_type)
+                decrease_button.callback = lambda interaction, tax_type=tax_type: self.decrease_tax_callback(interaction, tax_type)
                 
                 new_view.add_item(increase_button)
                 new_view.add_item(decrease_button)
@@ -133,6 +133,14 @@ class TaxationV2(commands.Cog):
 
         return view
 
+
+    async def increase_tax_callback(self, interaction: nextcord.Interaction, tax_type: str):
+        self.tax_data[tax_type] += 1
+        await interaction.response.send_message(f"{tax_type.replace('_', ' ').title()} increased to {self.tax_data[tax_type]}%", ephemeral=True)
+
+    async def decrease_tax_callback(self, interaction: nextcord.Interaction, tax_type: str):
+        self.tax_data[tax_type] -= 1
+        await interaction.response.send_message(f"{tax_type.replace('_', ' ').title()} decreased to {self.tax_data[tax_type]}%", ephemeral=True)
 
 def setup(bot):
     bot.add_cog(TaxationV2(bot))
