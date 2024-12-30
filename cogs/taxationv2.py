@@ -140,6 +140,8 @@ class TaxationV2(commands.Cog):
                 "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
                 "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor."
             ]
+            # Embed banner image
+            embed.set_image(url="https://live.staticflickr.com/65535/54234146062_23aed5e9c8_m.jpg")  # Replace with your own image URL
 
             # Randomly choose a description
             embed.description = random.choice(descriptions)
