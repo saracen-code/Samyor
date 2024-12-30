@@ -116,7 +116,6 @@ class TaxationV2(commands.Cog):
             if 2 <= page <= 9:
                 # Add tax adjustment buttons for tax pages
                 tax_type = list(self.tax_data.keys())[page - 2]
-                
                 async def increase_callback(inter):
                     # Use the taxobj to call the increase_tax method
                     try:
@@ -138,7 +137,6 @@ class TaxationV2(commands.Cog):
                         return
                     embed_updated = self.create_embed(page, country)
                     await inter.response.edit_message(embed=embed_updated, view=self.create_view(ctx, country))
-                
                 increase_button = Button(label="Increase", style=nextcord.ButtonStyle.success)
                 decrease_button = Button(label="Decrease", style=nextcord.ButtonStyle.danger)
                 
