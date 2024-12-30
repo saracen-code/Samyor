@@ -91,7 +91,7 @@ class TaxationV2(commands.Cog):
 
             # Add each item of the Table of Contents as a separate field
             for idx, item in enumerate(self.table_of_contents, 2):
-                page_title = f"𝕻age {idx}__\n"  # Using code block with syntax highlighting for blue text
+                page_title = f"__𝕻age {idx}__\n"  # Using code block with syntax highlighting for blue text
                 embed.add_field(name=page_title, value=item, inline=False)
             
             # Add a footer with the current page number
@@ -103,10 +103,15 @@ class TaxationV2(commands.Cog):
             tax_type = list(self.tax_data.keys())[page - 2]
             tax_value = self.tax_data[tax_type]
             embed.description = (
-                f"**{tax_type.replace('_', ' ').title()}**\n\n"
+                f"__**{tax_type.replace('_', ' ').title()}**__\n"
+                "The faint scent of ink and parchment fills the dimly lit chamber."
+                "Shelves upon shelves of dusty scrolls line the walls, each one detailing the various estates under the kingdom's rule."
+                "The quill in your hand scratches the paper, the weight of your task bearing down as you prepare the land tax assessments for the year.\n\n"
                 f"Current Tax Percentage: {tax_value}%\n\n"
-                "Use the buttons below to adjust the tax percentage."
             )
+            embed.set_image(url="https://images.fineartamerica.com/images-medium-large-5/medieval-landscape-with-people-unknown.jpg")
+            embed.set_footer(text=f"Use the buttons below to adjust the tax percentage | Page {page}") 
+            
         elif page == 10:
             embed.description = (
                 "**Collect Annual Taxes**\n\n"
