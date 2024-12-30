@@ -66,85 +66,83 @@ class TaxationV2(commands.Cog):
         """Creates an embed for the given page."""
         embed = nextcord.Embed(title=f"__Taxation Management:__ {country}", color=nextcord.Color(0xD3A839))
         if page == 1:
-            def create_embed(self, page: int, country: str):
-
             # List of different randomized descriptions
-                descriptions = [
-                    f"**Welcome to the Bureau of Taxation, Your Excellency, Egden {country.king}**\n\n"
-                    "You stand in a grand office, surrounded by towering shelves filled with ancient scrolls, dusty ledgers, and the faint scent of ink and parchment. A flickering candle illuminates the stone walls as the clattering of quills fills the air.\n\n"
-                    "At the far end of the room, an aged desk is cluttered with official documents awaiting your careful scrutiny. Before you lies the esteemed **Tax Management System**, a tool to ensure the prosperity and order of your domain.\n\n"
-                    "Use the buttons below to navigate through the various tax levies that keep the kingdom's coffers full and its people content.\n\n"
-                    "**Table of Contents**:\n"
-                    "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
-                    "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
-                    "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
-                    "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
-                    "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
-                    "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
-                    "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
-                    "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
-                    "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor.",
+            descriptions = [
+                f"**Welcome to the Bureau of Taxation, Your Excellency, Egden {country.king}**\n\n"
+                "You stand in a grand office, surrounded by towering shelves filled with ancient scrolls, dusty ledgers, and the faint scent of ink and parchment. A flickering candle illuminates the stone walls as the clattering of quills fills the air.\n\n"
+                "At the far end of the room, an aged desk is cluttered with official documents awaiting your careful scrutiny. Before you lies the esteemed **Tax Management System**, a tool to ensure the prosperity and order of your domain.\n\n"
+                "Use the buttons below to navigate through the various tax levies that keep the kingdom's coffers full and its people content.\n\n"
+                "**Table of Contents**:\n"
+                "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
+                "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
+                "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
+                "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
+                "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
+                "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
+                "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
+                "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
+                "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor.",
 
-                    f"**Greetings, Noble Ruler, Egden {country.king}**\n\n"
-                    "Within the stone-clad walls of your grand office, a cold breeze sweeps through the towering windows. Ancient tomes and parchments line the walls, and the muffled sound of scribes furiously working can be heard from the adjoining chambers.\n\n"
-                    "At your desk sits the **Tax Management System**, the key to your kingdom's financial prosperity. As you survey the documents, you must make decisions that affect the very foundation of your realm.\n\n"
-                    "**Table of Contents**:\n"
-                    "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
-                    "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
-                    "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
-                    "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
-                    "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
-                    "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
-                    "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
-                    "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
-                    "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor.",
+                f"**Greetings, Noble Ruler, Egden {country.king}**\n\n"
+                "Within the stone-clad walls of your grand office, a cold breeze sweeps through the towering windows. Ancient tomes and parchments line the walls, and the muffled sound of scribes furiously working can be heard from the adjoining chambers.\n\n"
+                "At your desk sits the **Tax Management System**, the key to your kingdom's financial prosperity. As you survey the documents, you must make decisions that affect the very foundation of your realm.\n\n"
+                "**Table of Contents**:\n"
+                "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
+                "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
+                "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
+                "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
+                "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
+                "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
+                "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
+                "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
+                "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor.",
 
-                    f"**Your Majesty, Egden {country.king}**\n\n"
-                    "The flickering firelight casts long shadows on the stone walls of your chambers. Piles of ledgers, scrolls, and quills fill the vast wooden desk, where only the faint scratch of the pen can be heard as you pore over the kingdom's finances.\n\n"
-                    "Before you lies the **Tax Management System**, an essential tool for keeping your kingdom’s economy flourishing and your people in check.\n\n"
-                    "**Table of Contents**:\n"
-                    "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
-                    "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
-                    "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
-                    "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
-                    "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
-                    "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
-                    "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
-                    "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
-                    "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor.",
+                f"**Your Majesty, Egden {country.king}**\n\n"
+                "The flickering firelight casts long shadows on the stone walls of your chambers. Piles of ledgers, scrolls, and quills fill the vast wooden desk, where only the faint scratch of the pen can be heard as you pore over the kingdom's finances.\n\n"
+                "Before you lies the **Tax Management System**, an essential tool for keeping your kingdom’s economy flourishing and your people in check.\n\n"
+                "**Table of Contents**:\n"
+                "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
+                "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
+                "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
+                "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
+                "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
+                "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
+                "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
+                "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
+                "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor.",
 
-                    f"**Welcome, Egden {country.king}**\n\n"
-                    "You sit in the dimly lit chamber, surrounded by towering shelves filled with dusty scrolls and the faint sound of a distant bell tolling. The air is thick with the weight of decisions yet to be made, and your desk is piled high with papers of great importance.\n\n"
-                    "Before you lies the **Tax Management System**, your trusted tool to uphold the kingdom's treasury and ensure the balance of power.\n\n"
-                    "**Table of Contents**:\n"
-                    "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
-                    "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
-                    "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
-                    "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
-                    "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
-                    "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
-                    "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
-                    "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
-                    "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor.",
+                f"**Welcome, Egden {country.king}**\n\n"
+                "You sit in the dimly lit chamber, surrounded by towering shelves filled with dusty scrolls and the faint sound of a distant bell tolling. The air is thick with the weight of decisions yet to be made, and your desk is piled high with papers of great importance.\n\n"
+                "Before you lies the **Tax Management System**, your trusted tool to uphold the kingdom's treasury and ensure the balance of power.\n\n"
+                "**Table of Contents**:\n"
+                "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
+                "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
+                "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
+                "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
+                "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
+                "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
+                "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
+                "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
+                "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor.",
 
-                    f"**Greetings, Honorable Egden {country.king}**\n\n"
-                    "You are seated in a well-lit office, adorned with maps of your lands and intricate paintings of your ancestors. The scent of parchment and ink fills the air, and the faint sound of scribes’ quills can be heard from the adjoining chambers.\n\n"
-                    "Your trusted **Tax Management System** lies before you, ready to assist in managing the kingdom’s finances and ensuring that all subjects contribute their due share.\n\n"
-                    "**Table of Contents**:\n"
-                    "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
-                    "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
-                    "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
-                    "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
-                    "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
-                    "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
-                    "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
-                    "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
-                    "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor."
-                ]
-        
-                # Randomly choose a description
-                embed.description = random.choice(descriptions)
-                return embed
+                f"**Greetings, Honorable Egden {country.king}**\n\n"
+                "You are seated in a well-lit office, adorned with maps of your lands and intricate paintings of your ancestors. The scent of parchment and ink fills the air, and the faint sound of scribes’ quills can be heard from the adjoining chambers.\n\n"
+                "Your trusted **Tax Management System** lies before you, ready to assist in managing the kingdom’s finances and ensuring that all subjects contribute their due share.\n\n"
+                "**Table of Contents**:\n"
+                "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.\n"
+                "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.\n"
+                "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.\n"
+                "5. **Customs** – The tariffs upon goods imported from foreign lands.\n"
+                "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.\n"
+                "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.\n"
+                "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.\n"
+                "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.\n"
+                "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor."
+            ]
+
+            # Randomly choose a description
+            embed.description = random.choice(descriptions)
+            return embed
         
         elif 2 <= page <= 9:
             tax_type = list(self.tax_data.keys())[page - 2]
