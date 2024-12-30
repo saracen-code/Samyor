@@ -74,6 +74,9 @@ class TaxationV2(commands.Cog):
         embed = nextcord.Embed(title=f"__Taxation Management:__ {country}", color=nextcord.Color(0xD3A839))
         country = clcountry.obj_checker(country)
         if page == 1:
+            # Embed banner image
+            embed.set_image(url="https://live.staticflickr.com/65535/54234146062_23aed5e9c8_b.jpg")  # Replace with your own image URL
+
             # Randomly choose a description and replace the placeholder with the country's king name
             description = random.choice(self.tax_descriptions).format(king=country.king)
             
@@ -83,14 +86,11 @@ class TaxationV2(commands.Cog):
             
             # Add each chunk of the description as a separate field
             for idx, field in enumerate(fields):
-                embed.add_field(name=f"Page {page} - Part {idx+1}", value=field, inline=False)
+                embed.add_field(name=f"Page {page}, value=field, inline=False)
 
             # Add each item of the Table of Contents as a separate field
             for idx, item in enumerate(self.table_of_contents, 2):
-                embed.add_field(name=f"Tax {idx}", value=item, inline=False)
-            
-            # Embed banner image
-            embed.set_image(url="https://live.staticflickr.com/65535/54234146062_23aed5e9c8_b.jpg")  # Replace with your own image URL
+                embed.add_field(name=f"Page {idx}", value=item, inline=False)
             
             # Add a footer with the current page number
             embed.set_footer(text=f"Page {page}")

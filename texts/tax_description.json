@@ -11,14 +11,14 @@
     "Greetings, Honorable Egden {king}. You are seated in a well-lit office, adorned with maps of your lands and intricate paintings of your ancestors. The scent of parchment and ink fills the air as you sit at a massive oak desk, quill in hand, contemplating the future of your kingdom. Your ancestors' portraits gaze down upon you, their eyes filled with wisdom and expectation. The **Tax Management System** lies in front of you, a tool both trusted and essential for managing the kingdom’s wealth and ensuring the stability of your rule. The distant sound of servants moving about in the hallways is the only interruption as you focus on the task at hand."
 ],
 "table_of_contents": [
-    "2. **Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.",
-    "3. **Poll Tax** – A simple yet crucial levy upon all subjects of the realm.",
-    "4. **Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.",
-    "5. **Customs** – The tariffs upon goods imported from foreign lands.",
-    "6. **Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.",
-    "7. **Ransoms** – For those noble or otherwise who fall into the hands of captors.",
-    "8. **Central Demesne** – The royal holdings from which all good subjects draw sustenance.",
-    "9. **Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.",
-    "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor."
+  "**Land Tax** – A fair tribute for the vast stretches of fertile fields and grand estates.",
+  "**Poll Tax** – A simple yet crucial levy upon all subjects of the realm.",
+  "**Rent Tax** – For those who reside in the castles, towns, and cottages of the kingdom.",
+  "**Customs** – The tariffs upon goods imported from foreign lands.",
+  "**Tribute** – The honored dues owed by neighboring realms, securing alliances and peace.",
+  "**Ransoms** – For those noble or otherwise who fall into the hands of captors.",
+  "**Central Demesne** – The royal holdings from which all good subjects draw sustenance.",
+  "**Extra Taxes** – Uncommon yet vital taxes to address unforeseen needs.",
+  "**Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor."
   ]
 }
