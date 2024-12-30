@@ -141,13 +141,13 @@ class TaxationV2(commands.Cog):
                 "10. **Collect Annual Taxes** – A solemn ritual to gather the fruits of the year's labor."
             ]
             # Embed banner image
-            embed.set_image(url="https://live.staticflickr.com/65535/54234146062_23aed5e9c8_m.jpg")  # Replace with your own image URL
+            embed.set_image(url="https://live.staticflickr.com/65535/54234146062_23aed5e9c8_b.jpg")  # Replace with your own image URL
 
             # Randomly choose a description
-            embed.description = random.choice(descriptions)
-            
-            # Add a thumbnail image
-            embed.set_thumbnail(url="https://cdn.openart.ai/uploads/image_n-7xXnou_1735527673534_raw.jpg")
+            description_text = random.choice(descriptions)
+
+            # Add the description as a field
+            embed.add_field(name="Description", value=description_text, inline=False)
 
              # Add a footer with the current page number
             embed.set_footer(text=f"Page {page}")
