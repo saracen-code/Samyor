@@ -72,56 +72,21 @@ class Taxation(commands.Cog):
         embed.set_footer(text="Country Tax Manager | Powered by SamyorBOT")
         return embed
 
-    async def switch_to_tax_selector_callback(self, taxobj, countryobj, ctx, interaction):
-        embed = nextcord.Embed(
-            title="🔄 Select Tax Type",
-            description=(
-                "Choose which tax type to hover over:\n\n"
-                "**Available Taxes:**\n"
-                "1️⃣ **Land Tax**\n"
-                "2️⃣ **Poll Tax**\n"
-                "3️⃣ **Rents**\n"
-                "4️⃣ **Customs**\n"
-                "5️⃣ **Tribute**\n"
-                "6️⃣ **Ransoms**\n"
-                "7️⃣ **Central Demesne**\n"
-            ),
-            color=nextcord.Color.green()
-        )
-
-        view = View()
-        taxes = ["land_tax", "poll_tax", "rents", "customs", "tribute", "ransoms", "central_demesne"]
-        for idx, tax_type in enumerate(taxes, start=1):
-            button = Button(label=tax_type.replace('_', ' ').title(), style=nextcord.ButtonStyle.secondary, emoji=f"{idx}️⃣")
-            async def tax_callback(inter, tax_type=tax_type):
-                self.hover_tax_type[ctx.author.id] = tax_type
-                embed_main = self.create_embed(taxobj, countryobj, ctx.author.id)
-                await inter.response.edit_message(embed=embed_main, view=self.create_main_view(taxobj, countryobj, ctx))
-            button.callback = tax_callback
-            view.add_item(button)
-
-        back_button = Button(label="Back to Main Page", style=nextcord.ButtonStyle.primary, emoji="⬅️")
-        async def back_callback(inter):
-            embed_main = self.create_embed(taxobj, countryobj, ctx.author.id)
-            await inter.response.edit_message(embed=embed_main, view=self.create_main_view(taxobj, countryobj, ctx))
-        back_button.callback = back_callback
-        view.add_item(back_button)
-
-        await interaction.response.edit_message(embed=embed, view=view)
-
     def create_main_view(self, taxobj, countryobj, ctx):
         view = View()
+        user_id = ctx.author.id  # Get the command initiator's ID
+
         increase_button = Button(label="Increase Tax", style=nextcord.ButtonStyle.primary, emoji="🔺")
         decrease_button = Button(label="Decrease Tax", style=nextcord.ButtonStyle.danger, emoji="🔻")
         collect_button = Button(label="Collect Annual Taxes", style=nextcord.ButtonStyle.success, emoji="💰")
         stats_button = Button(label="View Stats", style=nextcord.ButtonStyle.primary, emoji="📊")
         switch_button = Button(label="Switch to Tax Selector", style=nextcord.ButtonStyle.secondary, emoji="🔄")
 
-        increase_button.callback = self.increase_tax_callback(taxobj, countryobj, ctx)
-        decrease_button.callback = self.decrease_tax_callback(taxobj, countryobj, ctx)
-        collect_button.callback = self.collect_taxes_callback(taxobj, countryobj, ctx)
-        stats_button.callback = self.view_stats_callback(taxobj, countryobj, ctx)
-        switch_button.callback = self.assign_switch_callback(taxobj, countryobj, ctx)
+        increase_button.callback = self.make_secure_callback(user_id, self.increase_tax_callback(taxobj, countryobj, ctx))
+        decrease_button.callback = self.make_secure_callback(user_id, self.decrease_tax_callback(taxobj, countryobj, ctx))
+        collect_button.callback = self.make_secure_callback(user_id, self.collect_taxes_callback(taxobj, countryobj, ctx))
+        stats_button.callback = self.make_secure_callback(user_id, self.view_stats_callback(taxobj, countryobj, ctx))
+        switch_button.callback = self.make_secure_callback(user_id, self.assign_switch_callback(taxobj, countryobj, ctx))
 
         view.add_item(increase_button)
         view.add_item(decrease_button)
@@ -129,6 +94,14 @@ class Taxation(commands.Cog):
         view.add_item(stats_button)
         view.add_item(switch_button)
         return view
+
+    def make_secure_callback(self, user_id, original_callback):
+        async def callback(interaction):
+            if interaction.user.id != user_id:
+                await interaction.response.send_message("You are not allowed to interact with this menu.", ephemeral=True)
+                return
+            await original_callback(interaction)
+        return callback
 
     def assign_switch_callback(self, taxobj, countryobj, ctx):
         async def callback(interaction):
