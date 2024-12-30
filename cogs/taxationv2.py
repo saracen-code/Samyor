@@ -110,6 +110,9 @@ class TaxationV2(commands.Cog):
             page = int(interaction.data["custom_id"].split("_")[1])
             embed = self.create_embed(page, country)
             new_view = self.create_view(ctx, country)
+            embed = self.create_embed(page, country)
+            new_view = self.create_view(ctx, country)
+            taxobj = tax.obj_checker(country)  # Ensure taxobj is accessible here
             if 2 <= page <= 9:
                 # Add tax adjustment buttons for tax pages
                 tax_type = list(self.tax_data.keys())[page - 2]
@@ -136,8 +139,6 @@ class TaxationV2(commands.Cog):
                 new_view.add_item(decrease_button)
                 
             await interaction.response.edit_message(embed=embed, view=new_view)
-
-        # Add navigation buttons for each page
         for i in range(1, 11):
             button = Button(label=f"Page {i}", style=nextcord.ButtonStyle.primary, custom_id=f"page_{i}")
             button.callback = button_callback
