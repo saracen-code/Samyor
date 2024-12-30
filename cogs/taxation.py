@@ -84,8 +84,8 @@ class Taxation(commands.Cog):
 
         increase_button.callback = self.make_secure_callback(user_id, self.increase_tax_callback(taxobj, countryobj, ctx))
         decrease_button.callback = self.make_secure_callback(user_id, self.decrease_tax_callback(taxobj, countryobj, ctx))
-        collect_button.callback = self.make_secure_callback(user_id, self.collect_taxes_callback(taxobj, countryobj, ctx))
-        stats_button.callback = self.make_secure_callback(user_id, self.view_stats_callback(taxobj, countryobj, ctx))
+        collect_button.callback = self.make_secure_callback(user_id, self.collect_taxes_callback(taxobj, countryobj))
+        stats_button.callback = self.make_secure_callback(user_id, self.view_stats_callback(countryobj))
         switch_button.callback = self.make_secure_callback(user_id, self.assign_switch_callback(taxobj, countryobj, ctx))
 
         view.add_item(increase_button)
@@ -105,7 +105,7 @@ class Taxation(commands.Cog):
 
     def assign_switch_callback(self, taxobj, countryobj, ctx):
         async def callback(interaction):
-            await self.switch_to_tax_selector_callback(taxobj, countryobj, ctx, interaction)
+            await self.switch_to_tax_selector_callback(taxobj, countryobj, interaction)
         return callback
 
     def increase_tax_callback(self, taxobj, countryobj, ctx):
@@ -122,12 +122,12 @@ class Taxation(commands.Cog):
             await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj, ctx.author.id), view=self.create_main_view(taxobj, countryobj, ctx))
         return callback
 
-    def collect_taxes_callback(self, taxobj, countryobj, ctx):
+    def collect_taxes_callback(self, taxobj, countryobj):
         async def callback(interaction):
             await interaction.response.send_message("Taxes have been collected.")
         return callback
 
-    def view_stats_callback(self, taxobj, countryobj, ctx):
+    def view_stats_callback(self, countryobj):
         async def callback(interaction):
             await interaction.response.send_message(f"Current funds: {countryobj.funds}")
         return callback
