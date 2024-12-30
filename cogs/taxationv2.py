@@ -115,12 +115,14 @@ class TaxationV2(commands.Cog):
                 tax_type = list(self.tax_data.keys())[page - 2]
                 
                 async def increase_callback(inter):
-                    self.tax_data[tax_type] += 1  # Simulate increasing tax
+                    # Use the taxobj to call the increase_tax method
+                    taxobj.increase_tax(tax_type, 1)
                     embed_updated = self.create_embed(page, country)
                     await inter.response.edit_message(embed=embed_updated, view=self.create_view(ctx, country))
                 
                 async def decrease_callback(inter):
-                    self.tax_data[tax_type] = max(0, self.tax_data[tax_type] - 1)  # Simulate decreasing tax
+                    # Use the taxobj to call the decrease_tax method (assuming you have this method)
+                    taxobj.decrease_tax(tax_type, 1)
                     embed_updated = self.create_embed(page, country)
                     await inter.response.edit_message(embed=embed_updated, view=self.create_view(ctx, country))
                 
@@ -146,3 +148,4 @@ class TaxationV2(commands.Cog):
 
 def setup(bot):
     bot.add_cog(TaxationV2(bot))
+
