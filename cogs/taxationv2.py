@@ -6,13 +6,16 @@ from classes.country import Country
 import classes.tax_settings as tax
 from classes.tax_settings import Tax
 import random
-import text.tax_description as descriptions
+import json
 
 class TaxationV2(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.hover_tax_type = {}  # Tracks the selected tax type per user
         self.tax_data = {}        # Stores tax data for the current session
+        # Load the tax descriptions from the JSON file
+        with open('texts/tax_description.json', 'r') as f:
+            self.tax_descriptions = json.load(f)["descriptions"]
 
     @commands.command(name="taxation_manage", help="Rank: Leader | Descr.: Control panel to manage taxes for your country.")
     async def taxationmanage(self, ctx):
@@ -69,7 +72,7 @@ class TaxationV2(commands.Cog):
         country = clcountry.obj_checker(country)
         if page == 1:
             # Randomly choose a description and replace the placeholder with the country's king name
-            description = random.choice(descriptions).format(king=country.king)
+            description = random.choice(self.tax_descriptions).format(king=country.king)
             
             # Split the description into smaller chunks for the fields
             field_length = 1024
