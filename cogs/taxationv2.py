@@ -91,7 +91,8 @@ class TaxationV2(commands.Cog):
 
             # Add each item of the Table of Contents as a separate field
             for idx, item in enumerate(self.table_of_contents, 2):
-                embed.add_field(name=f"__Page {idx}__", value=item, inline=False)
+                page_title = f"```diff\n+ Page {idx} ```"  # Using code block with syntax highlighting for blue text
+                embed.add_field(name=page_title, value=item, inline=False)
             
             # Add a footer with the current page number
             embed.set_footer(text=f"Page {page}")
