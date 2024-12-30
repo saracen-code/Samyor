@@ -51,11 +51,11 @@ class Taxation(commands.Cog):
         switch_button = Button(label="Switch to Tax Selector", style=nextcord.ButtonStyle.secondary, emoji="🔄")
 
         # Add callbacks to buttons
-        increase_button.callback = await self.increase_tax_callback(taxobj, countryobj, ctx)
-        decrease_button.callback = await self.decrease_tax_callback(taxobj, countryobj, ctx)
-        collect_button.callback = await self.collect_taxes_callback(taxobj, countryobj, ctx)
-        stats_button.callback = await self.view_stats_callback(taxobj, countryobj, ctx)
-        switch_button.callback = await self.switch_to_tax_selector_callback(taxobj, countryobj, ctx)
+        increase_button.callback = self.increase_tax_callback(taxobj, countryobj, ctx)
+        decrease_button.callback = self.decrease_tax_callback(taxobj, countryobj, ctx)
+        collect_button.callback = self.collect_taxes_callback(taxobj, countryobj, ctx)
+        stats_button.callback = self.view_stats_callback(taxobj, countryobj, ctx)
+        switch_button.callback = self.assign_switch_callback(taxobj, countryobj, ctx)
 
         # Create a view and add buttons to it
         view = View()
@@ -90,40 +90,42 @@ class Taxation(commands.Cog):
         embed.set_footer(text="Country Tax Manager | Powered by SamyorBOT")
         return embed
 
-    async def switch_to_tax_selector_callback(self, taxobj, countryobj, ctx):
+    async def switch_to_tax_selector_callback(self, taxobj, countryobj, ctx, interaction):
+        embed = nextcord.Embed(
+            title="🔄 Select Tax Type",
+            description=(
+                "Choose which tax type to hover over. Use the buttons below to select a tax type:\n\n"
+                "**Available Taxes:**\n"
+                "1️⃣ **Land Tax**\n"
+                "2️⃣ **Poll Tax**\n"
+                "3️⃣ **Rents**\n"
+                "4️⃣ **Customs**\n"
+                "5️⃣ **Tribute**\n"
+                "6️⃣ **Ransoms**\n"
+                "7️⃣ **Central Demesne**\n"
+            ),
+            color=nextcord.Color.green()
+        )
+
+        # Buttons for selecting tax type
+        view = View()
+        taxes = ["land_tax", "poll_tax", "rents", "customs", "tribute", "ransoms", "central_demesne"]
+        for idx, tax_type in enumerate(taxes, start=1):
+            button = Button(label=f"{tax_type.replace('_', ' ').title()}", style=nextcord.ButtonStyle.secondary, emoji=f"{idx}️⃣")
+
+            async def tax_callback(interaction, tax_type=tax_type):
+                self.hover_tax_type[ctx.author.id] = tax_type
+                await interaction.response.send_message(f"You are now hovering over: {tax_type.replace('_', ' ').title()}.", ephemeral=True)
+
+            button.callback = tax_callback
+            view.add_item(button)
+
+        # Send the tax selector embed with buttons
+        await interaction.response.edit_message(embed=embed, view=view)
+
+    def assign_switch_callback(self, taxobj, countryobj, ctx):
         async def callback(interaction):
-            embed = nextcord.Embed(
-                title="🔄 Select Tax Type",
-                description=(
-                    "Choose which tax type to hover over. Use the buttons below to select a tax type:\n\n"
-                    "**Available Taxes:**\n"
-                    "1️⃣ **Land Tax**\n"
-                    "2️⃣ **Poll Tax**\n"
-                    "3️⃣ **Rents**\n"
-                    "4️⃣ **Customs**\n"
-                    "5️⃣ **Tribute**\n"
-                    "6️⃣ **Ransoms**\n"
-                    "7️⃣ **Central Demesne**\n"
-                ),
-                color=nextcord.Color.green()
-            )
-
-            # Buttons for selecting tax type
-            view = View()
-            taxes = ["land_tax", "poll_tax", "rents", "customs", "tribute", "ransoms", "central_demesne"]
-            for idx, tax_type in enumerate(taxes, start=1):
-                button = Button(label=f"{tax_type.replace('_', ' ').title()}", style=nextcord.ButtonStyle.secondary, emoji=f"{idx}️⃣")
-
-                async def tax_callback(interaction, tax_type=tax_type):
-                    self.hover_tax_type[ctx.author.id] = tax_type
-                    await interaction.response.send_message(f"You are now hovering over: {tax_type.replace('_', ' ').title()}.", ephemeral=True)
-
-                button.callback = tax_callback
-                view.add_item(button)
-
-            # Send the tax selector embed with buttons
-            await interaction.response.edit_message(embed=embed, view=view)
-
+            await self.switch_to_tax_selector_callback(taxobj, countryobj, ctx, interaction)
         return callback
 
     def increase_tax_callback(self, taxobj, countryobj, ctx):
