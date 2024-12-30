@@ -71,7 +71,7 @@ class TaxationV2(commands.Cog):
 
     def create_embed(self, page: int, country: str):
         """Creates an embed for the given page."""
-        embed = nextcord.Embed(title=f"__Taxation Management:__ {country}", color=nextcord.Color(0xD3A839))
+        embed = nextcord.Embed(title=f"__𝕿axation management:__ {country}", color=nextcord.Color(0xD3A839))
         country = clcountry.obj_checker(country)
         if page == 1:
             # Embed banner image
@@ -91,7 +91,7 @@ class TaxationV2(commands.Cog):
 
             # Add each item of the Table of Contents as a separate field
             for idx, item in enumerate(self.table_of_contents, 2):
-                page_title = f"__𝔓𝔞𝔤𝔢 {idx}__\n"  # Using code block with syntax highlighting for blue text
+                page_title = f"𝕻age {idx}__\n"  # Using code block with syntax highlighting for blue text
                 embed.add_field(name=page_title, value=item, inline=False)
             
             # Add a footer with the current page number
