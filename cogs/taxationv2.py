@@ -143,6 +143,13 @@ class TaxationV2(commands.Cog):
 
             # Randomly choose a description
             embed.description = random.choice(descriptions)
+            
+            # Add a thumbnail image
+            embed.set_thumbnail(url="https://cdn.openart.ai/uploads/image_n-7xXnou_1735527673534_raw.jpg")
+
+             # Add a footer with the current page number
+            embed.set_footer(text=f"Page {page}")
+
             return embed
         
         elif 2 <= page <= 9:
