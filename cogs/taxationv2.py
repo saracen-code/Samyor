@@ -54,8 +54,8 @@ class TaxationV2(commands.Cog):
                 "tribute": taxobj.tribute,
                 "ransoms": taxobj.ransoms,
                 "central_demesne": taxobj.central_demesne,
-                "extra_taxes": taxobj.slot1,
-                "annual_taxes": taxobj.slot2
+                "extra_taxes": "unavailable at the moment",
+                "annual_taxes": "unavailable at the moment"
             }
         
         # Start with the home page
