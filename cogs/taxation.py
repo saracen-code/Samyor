@@ -51,11 +51,11 @@ class Taxation(commands.Cog):
         switch_button = Button(label="Switch to Tax Selector", style=nextcord.ButtonStyle.secondary, emoji="🔄")
 
         # Add callbacks to buttons
-        increase_button.callback = self.increase_tax_callback(taxobj, countryobj, ctx)
-        decrease_button.callback = self.decrease_tax_callback(taxobj, countryobj, ctx)
-        collect_button.callback = self.collect_taxes_callback(taxobj, countryobj, ctx)
-        stats_button.callback = self.view_stats_callback(taxobj, countryobj, ctx)
-        switch_button.callback = self.switch_to_tax_selector_callback(taxobj, countryobj, ctx)
+        increase_button.callback = await self.increase_tax_callback(taxobj, countryobj, ctx)
+        decrease_button.callback = await self.decrease_tax_callback(taxobj, countryobj, ctx)
+        collect_button.callback = await self.collect_taxes_callback(taxobj, countryobj, ctx)
+        stats_button.callback = await self.view_stats_callback(taxobj, countryobj, ctx)
+        switch_button.callback = await self.switch_to_tax_selector_callback(taxobj, countryobj, ctx)
 
         # Create a view and add buttons to it
         view = View()
