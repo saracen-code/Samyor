@@ -68,7 +68,7 @@ class Market(commands.Cog):
         )
         embed.set_author(
             name="Ghallab Market",
-            icon_url="https://live.staticflickr.com/65535/54235387279_957374bab4_b.jpg"  # Replace with your castle image URL
+            icon_url="https://live.staticflickr.com/65535/54235387279_957374bab4_b.jpg")  # Replace with your castle image URL
         embed.set_footer(text="Type '!buy [item name]' to purchase an item.")
         embed.set_thumbnail(url="https://live.staticflickr.com/65535/54235510505_83546d60fa_b.jpg")  # Replace with your image URL
         embed.set_image(url="https://cdna.artstation.com/p/assets/images/images/056/537/630/large/jama-jurabaev-shot1.jpg?1669500016")  # Replace with your banner image URL
