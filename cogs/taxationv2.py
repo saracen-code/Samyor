@@ -17,7 +17,7 @@ class TaxationV2(commands.Cog):
         with open('texts/tax_description.json', 'r') as f:
             self.tax_descriptions = json.load(f)["descriptions"]
         # Load the table of contents from JSON
-        with open("text/tax_table_of_contents.json", "r") as f:
+        with open("texts/tax_description.json", "r") as f:
             self.table_of_contents = json.load(f)["table_of_contents"]
 
     @commands.command(name="taxation_manage", help="Rank: Leader | Descr.: Control panel to manage taxes for your country.")
