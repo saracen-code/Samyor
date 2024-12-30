@@ -93,7 +93,10 @@ class TaxationV2(commands.Cog):
             for idx, item in enumerate(self.table_of_contents, 2):
                 page_title = f"__𝕻age {idx}__\n"  # Using code block with syntax highlighting for blue text
                 embed.add_field(name=page_title, value=item, inline=False)
-            
+
+            # Landscape painting
+            embed.set_image(url="https://img.freepik.com/premium-photo/medieval-florentine-banking-scene-illustration_818261-29255.jpg")
+
             # Add a footer with the current page number
             embed.set_footer(text=f"Page {page}")
 
