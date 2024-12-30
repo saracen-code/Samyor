@@ -1,18 +1,16 @@
 import nextcord
 from nextcord.ext import commands
 from nextcord.ui import Button, View
-from nextcord import embeds
 import classes.country as clcountry
 from classes.country import Country
-import asyncio
 import classes.tax_settings as tax
 from classes.tax_settings import Tax
 
 class TaxationV2(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.hover_tax_type = {}  # Dictionary to track the selected tax type per user
-        self.tax_data = {}
+        self.hover_tax_type = {}  # Tracks the selected tax type per user
+        self.tax_data = {}        # Stores tax data for the current session
 
     @commands.command(name="taxation_manage", help="Rank: Leader | Descr.: Control panel to manage taxes for your country.")
     async def taxationmanage(self, ctx):
@@ -40,12 +38,11 @@ class TaxationV2(commands.Cog):
             except nextcord.errors.TimeoutError:
                 await ctx.send("Command timed out. Please try again.")
                 return
+
         # Create Country and Tax objects
         taxobj = tax.obj_checker(country)
         countryobj = clcountry.obj_checker(country)
 
-
-        # Update tax_data dictionary with actual tax data
         if taxobj and countryobj:
             self.tax_data = {
                 "land_tax": taxobj.land_tax,
@@ -58,7 +55,7 @@ class TaxationV2(commands.Cog):
                 "extra_taxes": "unavailable at the moment",
                 "annual_taxes": "unavailable at the moment"
             }
-        
+
         # Start with the home page
         embed = self.create_embed(page=1, country=country)
         view = self.create_view(ctx, country)
@@ -114,15 +111,28 @@ class TaxationV2(commands.Cog):
             embed = self.create_embed(page, country)
             new_view = self.create_view(ctx, country)
             if 2 <= page <= 9:
-                increase_button = Button(label="Increase", style=nextcord.ButtonStyle.success, custom_id="increase")
-                decrease_button = Button(label="Decrease", style=nextcord.ButtonStyle.danger, custom_id="decrease")
+                # Add tax adjustment buttons for tax pages
+                tax_type = list(self.tax_data.keys())[page - 2]
                 
-                # Add callbacks to buttons
-                increase_button.callback = lambda interaction, tax_type=tax_type: self.increase_tax_callback(interaction, tax_type)
-                decrease_button.callback = lambda interaction, tax_type=tax_type: self.decrease_tax_callback(interaction, tax_type)
+                async def increase_callback(inter):
+                    self.tax_data[tax_type] += 1  # Simulate increasing tax
+                    embed_updated = self.create_embed(page, country)
+                    await inter.response.edit_message(embed=embed_updated, view=self.create_view(ctx, country))
+                
+                async def decrease_callback(inter):
+                    self.tax_data[tax_type] = max(0, self.tax_data[tax_type] - 1)  # Simulate decreasing tax
+                    embed_updated = self.create_embed(page, country)
+                    await inter.response.edit_message(embed=embed_updated, view=self.create_view(ctx, country))
+                
+                increase_button = Button(label="Increase", style=nextcord.ButtonStyle.success)
+                decrease_button = Button(label="Decrease", style=nextcord.ButtonStyle.danger)
+                
+                increase_button.callback = increase_callback
+                decrease_button.callback = decrease_callback
                 
                 new_view.add_item(increase_button)
                 new_view.add_item(decrease_button)
+                
             await interaction.response.edit_message(embed=embed, view=new_view)
 
         # Add navigation buttons for each page
@@ -133,14 +143,6 @@ class TaxationV2(commands.Cog):
 
         return view
 
-
-    async def increase_tax_callback(self, interaction: nextcord.Interaction, tax_type: str):
-        self.tax_data[tax_type] += 1
-        await interaction.response.send_message(f"{tax_type.replace('_', ' ').title()} increased to {self.tax_data[tax_type]}%", ephemeral=True)
-
-    async def decrease_tax_callback(self, interaction: nextcord.Interaction, tax_type: str):
-        self.tax_data[tax_type] -= 1
-        await interaction.response.send_message(f"{tax_type.replace('_', ' ').title()} decreased to {self.tax_data[tax_type]}%", ephemeral=True)
 
 def setup(bot):
     bot.add_cog(TaxationV2(bot))
