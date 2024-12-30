@@ -12,17 +12,7 @@ class TaxationV2(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.hover_tax_type = {}  # Dictionary to track the selected tax type per user
-        self.tax_data = {
-            "land_tax": 10,
-            "poll_tax": 5,
-            "rent_tax": 7,
-            "customs": 8,
-            "tribute": 6,
-            "ransoms": 3,
-            "central_demesne": 12,
-            "extra_taxes": 4,
-            "annual_taxes": 15
-        }
+        self.tax_data = {}
 
     @commands.command(name="taxation_manage", help="Rank: Leader | Descr.: Control panel to manage taxes for your country.")
     async def taxationmanage(self, ctx):
@@ -50,7 +40,24 @@ class TaxationV2(commands.Cog):
             except nextcord.errors.TimeoutError:
                 await ctx.send("Command timed out. Please try again.")
                 return
+        # Create Country and Tax objects
+        taxobj = tax.obj_checker(country)
+        countryobj = clcountry.obj_checker(country)
 
+        # Update tax_data dictionary with actual tax data
+        if taxobj and countryobj:
+            self.tax_data = {
+                "land_tax": taxobj.land_tax,
+                "poll_tax": taxobj.poll_tax,
+                "rent_tax": taxobj.rents,
+                "customs": taxobj.customs,
+                "tribute": taxobj.tribute,
+                "ransoms": taxobj.ransoms,
+                "central_demesne": taxobj.central_demesne,
+                "extra_taxes": taxobj.slot1,
+                "annual_taxes": taxobj.slot2
+            }
+        
         # Start with the home page
         embed = self.create_embed(page=1, country=country)
         view = self.create_view(ctx, country)
