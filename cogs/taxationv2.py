@@ -27,7 +27,7 @@ class TaxationV2(commands.Cog):
     @commands.command(name="taxation_manage", help="Rank: Leader | Descr.: Control panel to manage taxes for your country.")
     async def taxationmanage(self, ctx):
         country = None
-        
+
         if not ctx.author.guild_permissions.administrator:
             country = clcountry.get_country_by_id(ctx.author.id)
             if not country:
@@ -39,7 +39,7 @@ class TaxationV2(commands.Cog):
 
             def check(m):
                 return m.author == ctx.author and m.channel == ctx.channel
-            
+
             try:
                 msg = await self.bot.wait_for('message', check=check, timeout=60)
                 country = clcountry.obj_checker(msg.content)
@@ -92,25 +92,32 @@ class TaxationV2(commands.Cog):
     def create_view(self, ctx, country):
         """Creates a view with navigation buttons and tax adjustment buttons."""
         view = View()
-        for i in range(1, 11):
-            view.add_item(Button(label=f"Page {i}", style=nextcord.ButtonStyle.primary, custom_id=f"page_{i}"))
 
-        def button_callback(interaction: nextcord.Interaction):
-            if interaction.user != ctx.author:
-                return
-            page = int(interaction.data["custom_id"].split("_")[1])
+        # Define the button callback for navigation and tax adjustment
         async def button_callback(interaction: nextcord.Interaction):
+            if interaction.user != ctx.author:
+                await interaction.response.send_message(
+                    "Insufficient permission: You are not allowed to interact with this menu.",
+                    ephemeral=True
+                )
+                return
+
             page = int(interaction.data["custom_id"].split("_")[1])
+            embed = self.create_embed(page, country)
             new_view = self.create_view(ctx, country)
             if 2 <= page <= 9:
                 new_view.add_item(Button(label="Increase", style=nextcord.ButtonStyle.success, custom_id="increase"))
                 new_view.add_item(Button(label="Decrease", style=nextcord.ButtonStyle.danger, custom_id="decrease"))
-            embed = self.create_embed(page, country)
             await interaction.response.edit_message(embed=embed, view=new_view)
 
-        for button in view.children:
+        # Add navigation buttons for each page
+        for i in range(1, 11):
+            button = Button(label=f"Page {i}", style=nextcord.ButtonStyle.primary, custom_id=f"page_{i}")
             button.callback = button_callback
+            view.add_item(button)
 
         return view
+
+
 def setup(bot):
     bot.add_cog(TaxationV2(bot))
