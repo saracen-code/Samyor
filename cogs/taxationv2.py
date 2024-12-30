@@ -104,10 +104,10 @@ class TaxationV2(commands.Cog):
             tax_value = self.tax_data[tax_type]
             embed.description = (
                 f"__**{tax_type.replace('_', ' ').title()}**__\n"
-                "The faint scent of ink and parchment fills the dimly lit chamber."
-                "Shelves upon shelves of dusty scrolls line the walls, each one detailing the various estates under the kingdom's rule."
-                "The quill in your hand scratches the paper, the weight of your task bearing down as you prepare the land tax assessments for the year.\n\n"
-                f"Current Tax Percentage: {tax_value}%\n\n"
+                "The faint scent of ink and parchment fills the dimly lit chamber. "
+                "Shelves upon shelves of dusty scrolls line the walls, each one detailing the various estates under the kingdom's rule. "
+                "The quill in your hand scratches the paper, the weight of your task bearing down as you prepare the tax assessments for the year.\n\n"
+                f"__Current Tax Percentage: {tax_value}%__\n\n"
             )
             embed.set_image(url="https://images.fineartamerica.com/images-medium-large-5/medieval-landscape-with-people-unknown.jpg")
             embed.set_footer(text=f"Use the buttons below to adjust the tax percentage | Page {page}") 
