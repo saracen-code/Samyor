@@ -75,7 +75,7 @@ class TaxationV2(commands.Cog):
         country = clcountry.obj_checker(country)
         if page == 1:
             # Embed banner image
-            embed.set_author(name=f"Viewing {country.name}'s Taxes", url="", icon_url="")
+            embed.set_author(name=f"Viewing {country.name.capitalize()}'s Taxes", url="", icon_url="")
             embed.set_thumbnail('https://live.staticflickr.com/65535/54235510505_83546d60fa_b.jpg')
 
             # Randomly choose a description and replace the placeholder with the country's king name
