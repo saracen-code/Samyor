@@ -87,11 +87,11 @@ class TaxationV2(commands.Cog):
             
             # Add each chunk of the description as a separate field
             for idx, field in enumerate(fields):
-                embed.add_field(name=f"Page {page}", value=field, inline=False)
+                embed.add_field(name=f"Welcome to the Bureau of Taxation!", value=field, inline=False)
 
             # Add each item of the Table of Contents as a separate field
             for idx, item in enumerate(self.table_of_contents, 2):
-                embed.add_field(name=f"Page {idx}", value=item, inline=False)
+                embed.add_field(name=f"__Page {idx}__", value=item, inline=False)
             
             # Add a footer with the current page number
             embed.set_footer(text=f"Page {page}")
