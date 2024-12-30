@@ -43,30 +43,8 @@ class Taxation(commands.Cog):
 
         embed = self.create_embed(taxobj, countryobj, ctx.author.id)
 
-        # Create buttons
-        increase_button = Button(label="Increase Tax", style=nextcord.ButtonStyle.primary, emoji="🔺")
-        decrease_button = Button(label="Decrease Tax", style=nextcord.ButtonStyle.danger, emoji="🔻")
-        collect_button = Button(label="Collect Annual Taxes", style=nextcord.ButtonStyle.success, emoji="💰")
-        stats_button = Button(label="View Stats", style=nextcord.ButtonStyle.primary, emoji="📊")
-        switch_button = Button(label="Switch to Tax Selector", style=nextcord.ButtonStyle.secondary, emoji="🔄")
-
-        # Add callbacks to buttons
-        increase_button.callback = self.increase_tax_callback(taxobj, countryobj, ctx)
-        decrease_button.callback = self.decrease_tax_callback(taxobj, countryobj, ctx)
-        collect_button.callback = self.collect_taxes_callback(taxobj, countryobj, ctx)
-        stats_button.callback = self.view_stats_callback(taxobj, countryobj, ctx)
-        switch_button.callback = self.assign_switch_callback(taxobj, countryobj, ctx)
-
-        # Create a view and add buttons to it
-        view = View()
-        view.add_item(increase_button)
-        view.add_item(decrease_button)
-        view.add_item(collect_button)
-        view.add_item(stats_button)
-        view.add_item(switch_button)
-
         # Send the embed with the view
-        await ctx.send(embed=embed, view=view)
+        await ctx.send(embed=embed, view=self.create_main_view(taxobj, countryobj, ctx))
 
     def create_embed(self, taxobj, countryobj, user_id):
         hover_tax = self.hover_tax_type.get(user_id, "land_tax")
@@ -124,7 +102,8 @@ class Taxation(commands.Cog):
 
             async def tax_callback(interaction, tax_type=tax_type):
                 self.hover_tax_type[ctx.author.id] = tax_type
-                await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj, ctx.author.id), view=None)
+                embed = self.create_embed(taxobj, countryobj, ctx.author.id)
+                await interaction.response.edit_message(embed=embed, view=self.create_main_view(taxobj, countryobj, ctx))
 
             button.callback = tax_callback
             view.add_item(button)
@@ -174,14 +153,14 @@ class Taxation(commands.Cog):
         async def callback(interaction):
             hover_tax = self.hover_tax_type.get(ctx.author.id, "land_tax")
             taxobj.increase_tax(hover_tax, 1)
-            await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj, ctx.author.id))
+            await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj, ctx.author.id), view=self.create_main_view(taxobj, countryobj, ctx))
         return callback
 
     def decrease_tax_callback(self, taxobj, countryobj, ctx):
         async def callback(interaction):
             hover_tax = self.hover_tax_type.get(ctx.author.id, "land_tax")
             taxobj.decrease_tax(hover_tax, 1)
-            await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj, ctx.author.id))
+            await interaction.response.edit_message(embed=self.create_embed(taxobj, countryobj, ctx.author.id), view=self.create_main_view(taxobj, countryobj, ctx))
         return callback
 
     def collect_taxes_callback(self, taxobj, countryobj, ctx):
