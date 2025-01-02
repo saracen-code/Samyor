@@ -89,6 +89,14 @@ def execute_operations(operations):
             ws = so.worksheet(name)
             ws.so.upd_country_col(col, values)
             print(f"Appended values: {values} to column {col}")
+        
+        elif op_type == "read_row":
+            row = operation["range"]
+            name = operation["file"]
+            ws = so.worksheet(name)
+            result = so.get_row(row, name)
+            print(f"Row {row}: {result}")
+            return result
 
         # Add more operation cases as needed
 

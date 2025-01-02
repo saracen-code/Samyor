@@ -2,18 +2,18 @@ import nextcord
 from nextcord.ext import commands
 
 class Market(commands.Cog):
-    """Cog for the Kingdom Market."""
+    """Cog for the Markets."""
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     async def market(self, ctx):
-        """Displays the Kingdom Market."""
+        """Displays the Market."""
         embed = nextcord.Embed(
-            title="🏰 Kingdom Market",
+            title="Ghallab Market",
             description=(
-                "Welcome to the bustling **Kingdom Market**! Here, you can find items essential for "
+                "Welcome to the bustling **Ghallab Market**! Here, you can find items essential for "
                 "your adventures and daily life. Browse the categories below and make your purchases wisely!"
             ),
             color=nextcord.Color.gold()
@@ -47,10 +47,10 @@ class Market(commands.Cog):
         embed.add_field(
             name="**Food & Supplies**",
             value=(
-                "![🍞](https://i.ibb.co/Fz6GNL9/fertilize-10492736-1.png) **Flour (0.45 kg)**: 5 gold\n"
-                "![🧪](https://example.com/potion_icon.png) **Healing Potion**: 20 gold\n"
-                "![🎒](https://example.com/rations_icon.png) **Travel Rations**: 10 gold\n"
-                "![🔥](https://example.com/torch_icon.png) **Torch**: 2 gold"
+                "!🍞**Flour (0.45 kg)**: 5 gold\n"
+                "!🧪https://example.com/potion_icon.png **Healing Potion**: 20 gold\n"
+                "!🎒https://example.com/rations_icon.png **Travel Rations**: 10 gold\n"
+                "!🔥https://example.com/torch_icon.png **Torch**: 2 gold"
             ),
             inline=False
         )

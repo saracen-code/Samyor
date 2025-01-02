@@ -48,3 +48,7 @@ def append_country_col(col: int, values, ws):
     command = {"type": "append_country_col", "range": col, "values": l, "file": "Countries",  "ID": count_operations_in_file()}
     write_operation_to_file(command)
     return count_operations_in_file()
+def read_row(row: int, ws):
+    command = {"type": "read_row", "range": row, "file": ws,  "ID": count_operations_in_file()}
+    write_operation_to_file(command)
+    return count_operations_in_file()

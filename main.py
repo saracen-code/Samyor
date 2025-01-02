@@ -35,6 +35,9 @@ async def initialize(ctx):
 clcountry.initializeExistingCountries_asOBJ()
 tax.initialize()
 
+# Load the categorize cog
+bot.load_extension("cogs.categorize")
+
 # Load and unload cogs
 if __name__ == "__main__":
     cwd = os.getcwd()
