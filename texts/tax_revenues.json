@@ -1,0 +1,20 @@
+{
+    "Highly Developed": [
+        "more than 32 people/km²",
+        "Revenues: 2,700 gold pieces per three years" 
+    ],
+    "Developed": [
+        "People: 16-32 people/km²",
+        "Revenues: 1,800 gold pieces per three years"
+    ],
+    "Undeveloped": [
+        "People: 8-16 people/km²",
+        "Revenues: 1,080 gold pieces per year"
+        
+    ],
+    "Very underdeveloped": [
+        "People: 0-8 people/km²",
+        "Revenues: 720 gold pieces per year"
+    ]
+  }
+  
